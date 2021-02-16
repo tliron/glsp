@@ -25,6 +25,12 @@ func (self *Server) handle(context contextpkg.Context, connection *jsonrpc2.Conn
 				self.Log.Errorf("%s", err.Error())
 			}
 		},
+		Call: func(method string, params interface{}, result interface{}) {
+			err := connection.Call(context, method, params, result)
+			if err != nil {
+				self.Log.Errorf("%s", err.Error())
+			}
+		},
 	}
 
 	switch request.Method {

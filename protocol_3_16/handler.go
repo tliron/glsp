@@ -84,12 +84,236 @@ type Handler struct {
 func (self *Handler) CreateServerCapabilities() ServerCapabilities {
 	var capabilities ServerCapabilities
 
-	if self.WorkspaceDidRenameFiles != nil {
-		capabilities.RenameProvider = true
+	if (self.TextDocumentDidOpen != nil) || (self.TextDocumentDidClose != nil) {
+		if _, ok := capabilities.TextDocumentSync.(*TextDocumentSyncOptions); !ok {
+			capabilities.TextDocumentSync = &TextDocumentSyncOptions{}
+		}
+		capabilities.TextDocumentSync.(*TextDocumentSyncOptions).OpenClose = &True
+	}
+
+	if self.TextDocumentDidChange != nil {
+		if _, ok := capabilities.TextDocumentSync.(*TextDocumentSyncOptions); !ok {
+			capabilities.TextDocumentSync = &TextDocumentSyncOptions{}
+		}
+		// This can be overriden to TextDocumentSyncKindFull
+		value := TextDocumentSyncKindIncremental
+		capabilities.TextDocumentSync.(*TextDocumentSyncOptions).Change = &value
+	}
+
+	if self.TextDocumentWillSave != nil {
+		if _, ok := capabilities.TextDocumentSync.(*TextDocumentSyncOptions); !ok {
+			capabilities.TextDocumentSync = &TextDocumentSyncOptions{}
+		}
+		capabilities.TextDocumentSync.(*TextDocumentSyncOptions).WillSave = &True
+	}
+
+	if self.TextDocumentWillSaveWaitUntil != nil {
+		if _, ok := capabilities.TextDocumentSync.(*TextDocumentSyncOptions); !ok {
+			capabilities.TextDocumentSync = &TextDocumentSyncOptions{}
+		}
+		capabilities.TextDocumentSync.(*TextDocumentSyncOptions).WillSaveWaitUntil = &True
+	}
+
+	if self.TextDocumentDidSave != nil {
+		if _, ok := capabilities.TextDocumentSync.(*TextDocumentSyncOptions); !ok {
+			capabilities.TextDocumentSync = &TextDocumentSyncOptions{}
+		}
+		capabilities.TextDocumentSync.(*TextDocumentSyncOptions).Save = &True
+	}
+
+	if self.TextDocumentCompletion != nil {
+		capabilities.CompletionProvider = &CompletionOptions{}
+	}
+
+	if self.TextDocumentHover != nil {
+		capabilities.HoverProvider = true
+	}
+
+	if self.TextDocumentSignatureHelp != nil {
+		capabilities.SignatureHelpProvider = &SignatureHelpOptions{}
+	}
+
+	if self.TextDocumentDeclaration != nil {
+		capabilities.DeclarationProvider = true
+	}
+
+	if self.TextDocumentDefinition != nil {
+		capabilities.DefinitionProvider = true
+	}
+
+	if self.TextDocumentTypeDefinition != nil {
+		capabilities.TypeDefinitionProvider = true
+	}
+
+	if self.TextDocumentImplementation != nil {
+		capabilities.ImplementationProvider = true
+	}
+
+	if self.TextDocumentReferences != nil {
+		capabilities.ReferencesProvider = true
+	}
+
+	if self.TextDocumentDocumentHighlight != nil {
+		capabilities.DocumentHighlightProvider = true
 	}
 
 	if self.TextDocumentDocumentSymbol != nil {
 		capabilities.DocumentSymbolProvider = true
+	}
+
+	if self.TextDocumentCodeAction != nil {
+		capabilities.CodeActionProvider = true
+	}
+
+	if self.TextDocumentCodeLens != nil {
+		capabilities.CodeLensProvider = &CodeLensOptions{}
+	}
+
+	if self.TextDocumentDocumentLink != nil {
+		capabilities.DocumentLinkProvider = &DocumentLinkOptions{}
+	}
+
+	if self.TextDocumentColor != nil {
+		capabilities.ColorProvider = true
+	}
+
+	if self.TextDocumentFormatting != nil {
+		capabilities.DocumentFormattingProvider = true
+	}
+
+	if self.TextDocumentRangeFormatting != nil {
+		capabilities.DocumentRangeFormattingProvider = true
+	}
+
+	if self.TextDocumentOnTypeFormatting != nil {
+		capabilities.DocumentOnTypeFormattingProvider = &DocumentOnTypeFormattingOptions{}
+	}
+
+	if self.TextDocumentRename != nil {
+		capabilities.RenameProvider = true
+	}
+
+	if self.TextDocumentFoldingRange != nil {
+		capabilities.FoldingRangeProvider = true
+	}
+
+	if self.WorkspaceExecuteCommand != nil {
+		capabilities.ExecuteCommandProvider = &ExecuteCommandOptions{}
+	}
+
+	if self.TextDocumentSelectionRange != nil {
+		capabilities.SelectionRangeProvider = true
+	}
+
+	if self.TextDocumentLinkedEditingRange != nil {
+		capabilities.LinkedEditingRangeProvider = true
+	}
+
+	if self.TextDocumentPrepareCallHierarchy != nil {
+		capabilities.CallHierarchyProvider = true
+	}
+
+	if self.TextDocumentSemanticTokensFull != nil {
+		if _, ok := capabilities.SemanticTokensProvider.(*SemanticTokensOptions); !ok {
+			capabilities.SemanticTokensProvider = &SemanticTokensOptions{}
+		}
+		if self.TextDocumentSemanticTokensFullDelta != nil {
+			capabilities.SemanticTokensProvider.(*SemanticTokensOptions).Full = &SemanticDelta{}
+			capabilities.SemanticTokensProvider.(*SemanticTokensOptions).Full.(*SemanticDelta).Delta = &True
+		} else {
+			capabilities.SemanticTokensProvider.(*SemanticTokensOptions).Full = true
+		}
+	}
+
+	if self.TextDocumentSemanticTokensRange != nil {
+		if _, ok := capabilities.SemanticTokensProvider.(*SemanticTokensOptions); !ok {
+			capabilities.SemanticTokensProvider = &SemanticTokensOptions{}
+		}
+		capabilities.SemanticTokensProvider.(*SemanticTokensOptions).Range = true
+	}
+
+	// TODO: self.TextDocumentSemanticTokensRefresh?
+
+	if self.TextDocumentMoniker != nil {
+		capabilities.MonikerProvider = true
+	}
+
+	if self.WorkspaceSymbol != nil {
+		capabilities.WorkspaceSymbolProvider = true
+	}
+
+	if self.WorkspaceDidCreateFiles != nil {
+		if capabilities.Workspace == nil {
+			capabilities.Workspace = &ServerCapabilitiesWorkspace{}
+		}
+		if capabilities.Workspace.FileOperations == nil {
+			capabilities.Workspace.FileOperations = &ServerCapabilitiesWorkspaceFileOperations{}
+		}
+		capabilities.Workspace.FileOperations.DidCreate = &FileOperationRegistrationOptions{
+			Filters: []FileOperationFilter{},
+		}
+	}
+
+	if self.WorkspaceWillCreateFiles != nil {
+		if capabilities.Workspace == nil {
+			capabilities.Workspace = &ServerCapabilitiesWorkspace{}
+		}
+		if capabilities.Workspace.FileOperations == nil {
+			capabilities.Workspace.FileOperations = &ServerCapabilitiesWorkspaceFileOperations{}
+		}
+		capabilities.Workspace.FileOperations.WillCreate = &FileOperationRegistrationOptions{
+			Filters: []FileOperationFilter{},
+		}
+	}
+
+	if self.WorkspaceDidRenameFiles != nil {
+		capabilities.RenameProvider = true
+		if capabilities.Workspace == nil {
+			capabilities.Workspace = &ServerCapabilitiesWorkspace{}
+		}
+		if capabilities.Workspace.FileOperations == nil {
+			capabilities.Workspace.FileOperations = &ServerCapabilitiesWorkspaceFileOperations{}
+		}
+		capabilities.Workspace.FileOperations.DidRename = &FileOperationRegistrationOptions{
+			Filters: []FileOperationFilter{},
+		}
+	}
+
+	if self.WorkspaceWillRenameFiles != nil {
+		capabilities.RenameProvider = true
+		if capabilities.Workspace == nil {
+			capabilities.Workspace = &ServerCapabilitiesWorkspace{}
+		}
+		if capabilities.Workspace.FileOperations == nil {
+			capabilities.Workspace.FileOperations = &ServerCapabilitiesWorkspaceFileOperations{}
+		}
+		capabilities.Workspace.FileOperations.WillRename = &FileOperationRegistrationOptions{
+			Filters: []FileOperationFilter{},
+		}
+	}
+
+	if self.WorkspaceDidDeleteFiles != nil {
+		if capabilities.Workspace == nil {
+			capabilities.Workspace = &ServerCapabilitiesWorkspace{}
+		}
+		if capabilities.Workspace.FileOperations == nil {
+			capabilities.Workspace.FileOperations = &ServerCapabilitiesWorkspaceFileOperations{}
+		}
+		capabilities.Workspace.FileOperations.DidDelete = &FileOperationRegistrationOptions{
+			Filters: []FileOperationFilter{},
+		}
+	}
+
+	if self.WorkspaceWillDeleteFiles != nil {
+		if capabilities.Workspace == nil {
+			capabilities.Workspace = &ServerCapabilitiesWorkspace{}
+		}
+		if capabilities.Workspace.FileOperations == nil {
+			capabilities.Workspace.FileOperations = &ServerCapabilitiesWorkspaceFileOperations{}
+		}
+		capabilities.Workspace.FileOperations.WillDelete = &FileOperationRegistrationOptions{
+			Filters: []FileOperationFilter{},
+		}
 	}
 
 	return capabilities

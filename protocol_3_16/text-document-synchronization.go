@@ -34,22 +34,6 @@ const (
 	TextDocumentSyncKindIncremental = TextDocumentSyncKind(2)
 )
 
-type TextDocumentSyncOptions struct {
-	/**
-	 * Open and close notifications are sent to the server. If omitted open
-	 * close notification should not be sent.
-	 */
-	OpenClose *bool `json:"openClose,omitempty"`
-
-	/**
-	 * Change notifications are sent to the server. See
-	 * TextDocumentSyncKind.None, TextDocumentSyncKind.Full and
-	 * TextDocumentSyncKind.Incremental. If omitted it defaults to
-	 * TextDocumentSyncKind.None.
-	 */
-	Change *TextDocumentSyncKind `json:"change,omitempty"`
-}
-
 // https://microsoft.github.io/language-server-protocol/specification#textDocument_didOpen
 
 const MethodTextDocumentDidOpen = Method("textDocument/didOpen")
@@ -279,7 +263,7 @@ type TextDocumentSyncClientCapabilities struct {
 	DidSave *bool `json:"didSave,omitempty"`
 }
 
-type TextDocumentSyncOptions2 struct {
+type TextDocumentSyncOptions struct {
 	/**
 	 * Open and close notifications are sent to the server. If omitted open
 	 * close notification should not be sent.
@@ -314,7 +298,7 @@ type TextDocumentSyncOptions2 struct {
 }
 
 // json.Unmarshaler interface
-func (self *TextDocumentSyncOptions2) UnmarshalJSON(data []byte) error {
+func (self *TextDocumentSyncOptions) UnmarshalJSON(data []byte) error {
 	var value struct {
 		OpenClose         *bool                 `json:"openClose"`
 		Change            *TextDocumentSyncKind `json:"change"`

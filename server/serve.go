@@ -4,6 +4,7 @@ import (
 	"io"
 
 	"github.com/gorilla/websocket"
+	"github.com/op/go-logging"
 	"github.com/sourcegraph/jsonrpc2"
 	wsjsonrpc2 "github.com/sourcegraph/jsonrpc2/websocket"
 )
@@ -12,7 +13,8 @@ import (
 
 func (self *Server) newConnectionOptions() []jsonrpc2.ConnOpt {
 	if self.Debug {
-		return []jsonrpc2.ConnOpt{jsonrpc2.LogMessages(&Logger{self.Log})}
+		logger := logging.MustGetLogger(self.LogBaseName + ".rpc")
+		return []jsonrpc2.ConnOpt{jsonrpc2.LogMessages(&Logger{logger})}
 	} else {
 		return nil
 	}

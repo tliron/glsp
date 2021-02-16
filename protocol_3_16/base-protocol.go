@@ -7,6 +7,9 @@ import (
 	"github.com/tliron/glsp"
 )
 
+var True bool = true
+var False bool = false
+
 type Method = string
 
 // https://microsoft.github.io/language-server-protocol/specification#number

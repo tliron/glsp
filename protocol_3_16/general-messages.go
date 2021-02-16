@@ -423,6 +423,23 @@ type ClientCapabilities struct {
 	Experimental interface{} `json:"experimental,omitempty"`
 }
 
+func (self *ClientCapabilities) SupportsSymbolKind(kind SymbolKind) bool {
+	var kinds []SymbolKind
+	if (self.TextDocument != nil) && (self.TextDocument.DocumentSymbol != nil) && (self.TextDocument.DocumentSymbol.SymbolKind != nil) {
+		kinds = self.TextDocument.DocumentSymbol.SymbolKind.ValueSet
+	}
+	if kinds == nil {
+		return kind <= 19
+	} else {
+		for _, kind_ := range kinds {
+			if kind == kind_ {
+				return true
+			}
+		}
+		return false
+	}
+}
+
 type InitializeResult struct {
 	/**
 	 * The capabilities the language server provides.
@@ -641,60 +658,64 @@ type ServerCapabilities struct {
 	/**
 	 * Workspace specific server capabilities
 	 */
-	Workspace *struct {
-		/**
-		 * The server supports workspace folder.
-		 *
-		 * @since 3.6.0
-		 */
-		WorkspaceFolders *WorkspaceFoldersServerCapabilities `json:"workspaceFolders,omitempty"`
-
-		/**
-		 * The server is interested in file notifications/requests.
-		 *
-		 * @since 3.16.0
-		 */
-		FileOperations *struct {
-			/**
-			 * The server is interested in receiving didCreateFiles
-			 * notifications.
-			 */
-			DidCreate *FileOperationRegistrationOptions `json:"didCreate,omitempty"`
-
-			/**
-			 * The server is interested in receiving willCreateFiles requests.
-			 */
-			WillCreate *FileOperationRegistrationOptions `json:"willCreate,omitempty"`
-
-			/**
-			 * The server is interested in receiving didRenameFiles
-			 * notifications.
-			 */
-			DidRename *FileOperationRegistrationOptions `json:"didRename,omitempty"`
-
-			/**
-			 * The server is interested in receiving willRenameFiles requests.
-			 */
-			WillRename *FileOperationRegistrationOptions `json:"willRename,omitempty"`
-
-			/**
-			 * The server is interested in receiving didDeleteFiles file
-			 * notifications.
-			 */
-			DidDelete *FileOperationRegistrationOptions `json:"didDelete,omitempty"`
-
-			/**
-			 * The server is interested in receiving willDeleteFiles file
-			 * requests.
-			 */
-			WillDelete *FileOperationRegistrationOptions `json:"willDelete,omitempty"`
-		} `json:"fileOperations,omitempty"`
-	} `json:"workspace,omitempty"`
+	Workspace *ServerCapabilitiesWorkspace `json:"workspace,omitempty"`
 
 	/**
 	 * Experimental server capabilities.
 	 */
 	Experimental interface{} `json:"experimental,omitempty"`
+}
+
+type ServerCapabilitiesWorkspace struct {
+	/**
+	 * The server supports workspace folder.
+	 *
+	 * @since 3.6.0
+	 */
+	WorkspaceFolders *WorkspaceFoldersServerCapabilities `json:"workspaceFolders,omitempty"`
+
+	/**
+	 * The server is interested in file notifications/requests.
+	 *
+	 * @since 3.16.0
+	 */
+	FileOperations *ServerCapabilitiesWorkspaceFileOperations `json:"fileOperations,omitempty"`
+}
+
+type ServerCapabilitiesWorkspaceFileOperations struct {
+	/**
+	 * The server is interested in receiving didCreateFiles
+	 * notifications.
+	 */
+	DidCreate *FileOperationRegistrationOptions `json:"didCreate,omitempty"`
+
+	/**
+	 * The server is interested in receiving willCreateFiles requests.
+	 */
+	WillCreate *FileOperationRegistrationOptions `json:"willCreate,omitempty"`
+
+	/**
+	 * The server is interested in receiving didRenameFiles
+	 * notifications.
+	 */
+	DidRename *FileOperationRegistrationOptions `json:"didRename,omitempty"`
+
+	/**
+	 * The server is interested in receiving willRenameFiles requests.
+	 */
+	WillRename *FileOperationRegistrationOptions `json:"willRename,omitempty"`
+
+	/**
+	 * The server is interested in receiving didDeleteFiles file
+	 * notifications.
+	 */
+	DidDelete *FileOperationRegistrationOptions `json:"didDelete,omitempty"`
+
+	/**
+	 * The server is interested in receiving willDeleteFiles file
+	 * requests.
+	 */
+	WillDelete *FileOperationRegistrationOptions `json:"willDelete,omitempty"`
 }
 
 // json.Unmarshaler interface
@@ -727,18 +748,8 @@ func (self *ServerCapabilities) UnmarshalJSON(data []byte) error {
 		SemanticTokensProvider           json.RawMessage                  `json:"semanticTokensProvider,omitempty"`     // nil | SemanticTokensOptions | SemanticTokensRegistrationOptions
 		MonikerProvider                  json.RawMessage                  `json:"monikerProvider,omitempty"`            // nil | bool | MonikerOptions | MonikerRegistrationOptions
 		WorkspaceSymbolProvider          json.RawMessage                  `json:"workspaceSymbolProvider,omitempty"`    // nil | bool | WorkspaceSymbolOptions
-		Workspace                        *struct {
-			WorkspaceFolders *WorkspaceFoldersServerCapabilities `json:"workspaceFolders,omitempty"`
-			FileOperations   *struct {
-				DidCreate  *FileOperationRegistrationOptions `json:"didCreate,omitempty"`
-				WillCreate *FileOperationRegistrationOptions `json:"willCreate,omitempty"`
-				DidRename  *FileOperationRegistrationOptions `json:"didRename,omitempty"`
-				WillRename *FileOperationRegistrationOptions `json:"willRename,omitempty"`
-				DidDelete  *FileOperationRegistrationOptions `json:"didDelete,omitempty"`
-				WillDelete *FileOperationRegistrationOptions `json:"willDelete,omitempty"`
-			} `json:"fileOperations,omitempty"`
-		} `json:"workspace,omitempty"`
-		Experimental *interface{} `json:"experimental,omitempty"`
+		Workspace                        *ServerCapabilitiesWorkspace     `json:"workspace,omitempty"`
+		Experimental                     *interface{}                     `json:"experimental,omitempty"`
 	}
 
 	if err := json.Unmarshal(data, &value); err == nil {

@@ -35,7 +35,7 @@ func (self *Server) RunWebSocket(address string) error {
 		return err
 	}
 
-	server := &http.Server{
+	server := http.Server{
 		Handler:      mux,
 		ReadTimeout:  self.ReadTimeout,
 		WriteTimeout: self.WriteTimeout,
@@ -43,5 +43,5 @@ func (self *Server) RunWebSocket(address string) error {
 
 	self.Log.Infof("listening for WebSocket connections on %s", address)
 	err = server.Serve(*listener)
-	return errors.Wrap(err, "HTTP server")
+	return errors.Wrap(err, "WebSocket")
 }
