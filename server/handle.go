@@ -15,19 +15,16 @@ func (self *Server) newHandler() jsonrpc2.Handler {
 }
 
 func (self *Server) handle(context contextpkg.Context, connection *jsonrpc2.Conn, request *jsonrpc2.Request) (interface{}, error) {
-	// glsp.NotifyFunc signature
 	glspContext := glsp.Context{
 		Method: request.Method,
 		Params: *request.Params,
 		Notify: func(method string, params interface{}) {
-			err := connection.Notify(context, method, params)
-			if err != nil {
+			if err := connection.Notify(context, method, params); err != nil {
 				self.Log.Errorf("%s", err.Error())
 			}
 		},
 		Call: func(method string, params interface{}, result interface{}) {
-			err := connection.Call(context, method, params, result)
-			if err != nil {
+			if err := connection.Call(context, method, params, result); err != nil {
 				self.Log.Errorf("%s", err.Error())
 			}
 		},
@@ -35,8 +32,10 @@ func (self *Server) handle(context contextpkg.Context, connection *jsonrpc2.Conn
 
 	switch request.Method {
 	case "exit":
-		connection.Close()
-		return nil, nil
+		// We're giving the attached handler a chance to handle it first, but we'll ignore any result
+		self.Handler.Handle(&glspContext)
+		err := connection.Close()
+		return nil, err
 
 	default:
 		// Note: jsonrpc2 will not even call this function if reqest.Params is not valid JSON,

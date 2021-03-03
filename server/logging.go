@@ -3,11 +3,11 @@ package server
 import (
 	"strings"
 
-	"github.com/op/go-logging"
+	"github.com/tliron/kutil/logging"
 )
 
 type Logger struct {
-	log *logging.Logger
+	log logging.Logger
 }
 
 // jsonrpc2.Logger interface

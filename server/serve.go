@@ -4,21 +4,12 @@ import (
 	"io"
 
 	"github.com/gorilla/websocket"
-	"github.com/op/go-logging"
 	"github.com/sourcegraph/jsonrpc2"
 	wsjsonrpc2 "github.com/sourcegraph/jsonrpc2/websocket"
+	"github.com/tliron/kutil/logging"
 )
 
 // See: https://github.com/sourcegraph/go-langserver/blob/master/main.go#L179
-
-func (self *Server) newConnectionOptions() []jsonrpc2.ConnOpt {
-	if self.Debug {
-		logger := logging.MustGetLogger(self.LogBaseName + ".rpc")
-		return []jsonrpc2.ConnOpt{jsonrpc2.LogMessages(&Logger{logger})}
-	} else {
-		return nil
-	}
-}
 
 func (self *Server) serveStream(stream io.ReadWriteCloser) {
 	handler := self.newHandler()
@@ -40,4 +31,13 @@ func (self *Server) serveStreamAsync(stream io.ReadWriteCloser, id int) {
 		<-connection.DisconnectNotify()
 		self.Log.Infof("connection #%d closed", id)
 	}()
+}
+
+func (self *Server) newConnectionOptions() []jsonrpc2.ConnOpt {
+	if self.Debug {
+		logger := logging.GetLogger(self.LogBaseName + ".rpc")
+		return []jsonrpc2.ConnOpt{jsonrpc2.LogMessages(&Logger{logger})}
+	} else {
+		return nil
+	}
 }

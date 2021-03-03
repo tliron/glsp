@@ -2,6 +2,7 @@ package protocol
 
 import (
 	"encoding/json"
+	"strings"
 )
 
 // https://microsoft.github.io/language-server-protocol/specification#uri
@@ -50,6 +51,32 @@ type Position struct {
 	Character UInteger `json:"character"`
 }
 
+func (self Position) IndexIn(content string) int {
+	index := 0
+	for row := UInteger(0); row < self.Line; row++ {
+		content_ := content[index:]
+		if next := strings.Index(content_, "\n"); next != -1 {
+			index += next + 1
+		} else {
+			return 0
+		}
+	}
+	return index + int(self.Character)
+}
+
+func (self Position) EndOfLineIn(content string) Position {
+	index := self.IndexIn(content)
+	content_ := content[index:]
+	if eol := strings.Index(content_, "\n"); eol != -1 {
+		return Position{
+			Line:      self.Line,
+			Character: self.Character + UInteger(eol),
+		}
+	} else {
+		return self
+	}
+}
+
 // https://microsoft.github.io/language-server-protocol/specification#range
 
 type Range struct {
@@ -62,6 +89,10 @@ type Range struct {
 	 * The range's end position.
 	 */
 	End Position `json:"end"`
+}
+
+func (self Range) IndexesIn(content string) (int, int) {
+	return self.Start.IndexIn(content), self.End.IndexIn(content)
 }
 
 // https://microsoft.github.io/language-server-protocol/specification#location
@@ -919,7 +950,7 @@ type WorkDoneProgressBegin struct {
 	 * long running operation. Clients that don't support cancellation are
 	 * allowed to ignore the setting.
 	 */
-	Cancellable *bool `json:"cancellable"`
+	Cancellable *bool `json:"cancellable,omitempty"`
 
 	/**
 	 * Optional, more detailed associated progress message. Contains
@@ -928,7 +959,7 @@ type WorkDoneProgressBegin struct {
 	 * Examples: "3/25 files", "project/src/module2", "node_modules/some_dep".
 	 * If unset, the previous progress message (if any) is still valid.
 	 */
-	Message *string `json:"message"`
+	Message *string `json:"message,omitempty"`
 
 	/**
 	 * Optional progress percentage to display (value 100 is considered 100%).
@@ -938,7 +969,7 @@ type WorkDoneProgressBegin struct {
 	 * The value should be steadily rising. Clients are free to ignore values
 	 * that are not following this rule. The value range is [0, 100]
 	 */
-	Percentage *UInteger `json:"percentage"`
+	Percentage *UInteger `json:"percentage,omitempty"`
 }
 
 type WorkDoneProgressReport struct {
@@ -987,11 +1018,11 @@ type WorkDoneProgressParams struct {
 	/**
 	 * An optional token that a server can use to report work done progress.
 	 */
-	WorkDoneToken *ProgressToken `json:"workDoneToken"`
+	WorkDoneToken *ProgressToken `json:"workDoneToken,omitempty"`
 }
 
 type WorkDoneProgressOptions struct {
-	WorkDoneProgress *bool `json:"workDoneProgress"`
+	WorkDoneProgress *bool `json:"workDoneProgress,omitempty"`
 }
 
 // https://microsoft.github.io/language-server-protocol/specification#partialResults
@@ -1001,7 +1032,7 @@ type PartialResultParams struct {
 	 * An optional token that a server can use to report partial results (e.g.
 	 * streaming) to the client.
 	 */
-	PartialResultToken *ProgressToken `json:"partialResultToken"`
+	PartialResultToken *ProgressToken `json:"partialResultToken,omitempty"`
 }
 
 // https://microsoft.github.io/language-server-protocol/specification#traceValue
@@ -1010,6 +1041,6 @@ type TraceValue string
 
 const (
 	TraceValueOff     = TraceValue("off")
-	TraceValueMessage = TraceValue("message")
+	TraceValueMessage = TraceValue("message") // The spec clearly says "message", but some implementations use "messages" instead
 	TraceValueVerbose = TraceValue("verbose")
 )
