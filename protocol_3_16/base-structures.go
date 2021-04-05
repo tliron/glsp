@@ -111,7 +111,7 @@ type LocationLink struct {
 	 * Used as the underlined span for mouse interaction. Defaults to the word
 	 * range at the mouse position.
 	 */
-	OriginSelectionRange *Range `json:"uri,omitempty"`
+	OriginSelectionRange *Range `json:"originSelectionRange,omitempty"`
 
 	/**
 	 * The target resource identifier of this link.
@@ -131,7 +131,7 @@ type LocationLink struct {
 	 * followed, e.g the name of a function. Must be contained by the the
 	 * `targetRange`. See also `DocumentSymbol#range`
 	 */
-	TargetSelectionRange Range `json:"targetSelectionRage"`
+	TargetSelectionRange Range `json:"targetSelectionRange"`
 }
 
 // https://microsoft.github.io/language-server-protocol/specification#diagnostic
