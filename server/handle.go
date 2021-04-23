@@ -17,7 +17,6 @@ func (self *Server) newHandler() jsonrpc2.Handler {
 func (self *Server) handle(context contextpkg.Context, connection *jsonrpc2.Conn, request *jsonrpc2.Request) (interface{}, error) {
 	glspContext := glsp.Context{
 		Method: request.Method,
-		Params: *request.Params,
 		Notify: func(method string, params interface{}) {
 			if err := connection.Notify(context, method, params); err != nil {
 				self.Log.Errorf("%s", err.Error())
@@ -28,6 +27,10 @@ func (self *Server) handle(context contextpkg.Context, connection *jsonrpc2.Conn
 				self.Log.Errorf("%s", err.Error())
 			}
 		},
+	}
+
+	if request.Params != nil {
+		glspContext.Params = *request.Params
 	}
 
 	switch request.Method {
