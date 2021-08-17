@@ -17,8 +17,10 @@ It enables you to more easily implement language servers by writing them in Go. 
 
 All you need to do, then, is provide the features for the language you want to support.
 
-For an example of a language server built using GLSP, see the
-[Puccini TOSCA Language Server](https://github.com/tliron/puccini-language-server).
+Projects using GLSP:
+
+* [Puccini TOSCA Language Server](https://github.com/tliron/puccini-language-server)
+* [zk](https://github.com/mickael-menu/zk)
 
 
 References
