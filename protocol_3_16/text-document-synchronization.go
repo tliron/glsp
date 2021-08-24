@@ -103,16 +103,18 @@ func (self *DidChangeTextDocumentParams) UnmarshalJSON(data []byte) error {
 		self.TextDocument = value.TextDocument
 
 		for _, contentChange := range value.ContentChanges {
-			var value_ TextDocumentContentChangeEvent
-			if err = json.Unmarshal(contentChange, &value_); err == nil {
-				self.ContentChanges = append(self.ContentChanges, value_)
-			} else {
-				var value_ TextDocumentContentChangeEventWhole
-				if err = json.Unmarshal(contentChange, &value_); err == nil {
-					self.ContentChanges = append(self.ContentChanges, value_)
+			var changeEvent TextDocumentContentChangeEvent
+			if err = json.Unmarshal(contentChange, &changeEvent); err == nil {
+				if changeEvent.Range != nil {
+					self.ContentChanges = append(self.ContentChanges, changeEvent)
 				} else {
-					return err
+					changeEventWhole := TextDocumentContentChangeEventWhole{
+						Text: changeEvent.Text,
+					}
+					self.ContentChanges = append(self.ContentChanges, changeEventWhole)
 				}
+			} else {
+				return err
 			}
 		}
 
@@ -130,7 +132,7 @@ type TextDocumentContentChangeEvent struct {
 	/**
 	 * The range of the document that changed.
 	 */
-	Range Range `json:"range"`
+	Range *Range `json:"range"`
 
 	/**
 	 * The optional length of the range that got replaced.
