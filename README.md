@@ -50,9 +50,7 @@ var version string = "0.0.1"
 var handler protocol.Handler
 
 func main() {
-	// Must configure logging before using server. Note that the import of a backend
-	// is required as well.
-	// See kutil's logging.Backend for Configure() param details.
+	// This increases logging verbosity (optional)
 	logging.Configure(1, nil)
 
 	handler = protocol.Handler{
