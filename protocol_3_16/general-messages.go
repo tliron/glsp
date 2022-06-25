@@ -6,7 +6,7 @@ import (
 	"github.com/tliron/glsp"
 )
 
-// https://microsoft.github.io/language-server-protocol/specification#initialize
+// https://microsoft.github.io/language-server-protocol/specifications/specification-3-16#initialize
 
 const MethodInitialize = Method("initialize")
 
@@ -1106,7 +1106,7 @@ func (self *ServerCapabilities) UnmarshalJSON(data []byte) error {
 	}
 }
 
-// https://microsoft.github.io/language-server-protocol/specification#initialized
+// https://microsoft.github.io/language-server-protocol/specifications/specification-3-16#initialized
 
 const MethodInitialized = Method("initialized")
 
@@ -1114,19 +1114,19 @@ type InitializedFunc func(context *glsp.Context, params *InitializedParams) erro
 
 type InitializedParams struct{}
 
-// https://microsoft.github.io/language-server-protocol/specification#shutdown
+// https://microsoft.github.io/language-server-protocol/specifications/specification-3-16#shutdown
 
 const MethodShutdown = Method("shutdown")
 
 type ShutdownFunc func(context *glsp.Context) error
 
-// https://microsoft.github.io/language-server-protocol/specification#exit
+// https://microsoft.github.io/language-server-protocol/specifications/specification-3-16#exit
 
 const MethodExit = Method("exit")
 
 type ExitFunc func(context *glsp.Context) error
 
-// https://microsoft.github.io/language-server-protocol/specification#logTrace
+// https://microsoft.github.io/language-server-protocol/specifications/specification-3-16#logTrace
 
 const MethodLogTrace = Method("$/logTrace")
 
@@ -1145,7 +1145,7 @@ type LogTraceParams struct {
 	Verbose *string `json:"verbose,omitempty"`
 }
 
-// https://microsoft.github.io/language-server-protocol/specification#setTrace
+// https://microsoft.github.io/language-server-protocol/specifications/specification-3-16#setTrace
 
 const MethodSetTrace = Method("$/setTrace")
 

@@ -6,13 +6,13 @@ import (
 	"unicode/utf8"
 )
 
-// https://microsoft.github.io/language-server-protocol/specification#uri
+// https://microsoft.github.io/language-server-protocol/specifications/specification-3-16#uri
 
 type DocumentUri = string
 
 type URI = string
 
-// https://microsoft.github.io/language-server-protocol/specification#regExp
+// https://microsoft.github.io/language-server-protocol/specifications/specification-3-16#regExp
 
 /**
  * Client capabilities specific to regular expressions.
@@ -29,11 +29,11 @@ type RegularExpressionsClientCapabilities struct {
 	Version *string `json:"version,omitempty"`
 }
 
-// https://microsoft.github.io/language-server-protocol/specification#textDocuments
+// https://microsoft.github.io/language-server-protocol/specifications/specification-3-16#textDocuments
 
 var EOL = []string{"\n", "\r\n", "\r"}
 
-// https://microsoft.github.io/language-server-protocol/specification#position
+// https://microsoft.github.io/language-server-protocol/specifications/specification-3-16#position
 
 type Position struct {
 	/**
@@ -57,7 +57,7 @@ func (self Position) IndexIn(content string) int {
 	// https://cs.opensource.google/go/x/tools/+/refs/tags/v0.1.5:internal/span/utf16.go;l=70
 
 	// In accordance with the LSP Spec:
-	// https://microsoft.github.io/language-server-protocol/specification#textDocuments
+	// https://microsoft.github.io/language-server-protocol/specifications/specification-3-16#textDocuments
 	// self.Character represents utf-16 code units, not bytes and so we need to
 	// convert utf-16 code units to a byte offset.
 
@@ -125,7 +125,7 @@ func (self Position) EndOfLineIn(content string) Position {
 	}
 }
 
-// https://microsoft.github.io/language-server-protocol/specification#range
+// https://microsoft.github.io/language-server-protocol/specifications/specification-3-16#range
 
 type Range struct {
 	/**
@@ -143,14 +143,14 @@ func (self Range) IndexesIn(content string) (int, int) {
 	return self.Start.IndexIn(content), self.End.IndexIn(content)
 }
 
-// https://microsoft.github.io/language-server-protocol/specification#location
+// https://microsoft.github.io/language-server-protocol/specifications/specification-3-16#location
 
 type Location struct {
 	URI   DocumentUri `json:"uri"`
 	Range Range       `json:"range"`
 }
 
-// https://microsoft.github.io/language-server-protocol/specification#locationLink
+// https://microsoft.github.io/language-server-protocol/specifications/specification-3-16#locationLink
 
 type LocationLink struct {
 	/**
@@ -182,7 +182,7 @@ type LocationLink struct {
 	TargetSelectionRange Range `json:"targetSelectionRange"`
 }
 
-// https://microsoft.github.io/language-server-protocol/specification#diagnostic
+// https://microsoft.github.io/language-server-protocol/specifications/specification-3-16#diagnostic
 
 type Diagnostic struct {
 	/**
@@ -319,7 +319,7 @@ type CodeDescription struct {
 	HRef URI `json:"href"`
 }
 
-// https://microsoft.github.io/language-server-protocol/specification#command
+// https://microsoft.github.io/language-server-protocol/specifications/specification-3-16#command
 
 type Command struct {
 	/**
@@ -339,7 +339,7 @@ type Command struct {
 	Arguments []interface{} `json:"arguments,omitempty"`
 }
 
-// https://microsoft.github.io/language-server-protocol/specification#textEdit
+// https://microsoft.github.io/language-server-protocol/specifications/specification-3-16#textEdit
 
 type TextEdit struct {
 	/**
@@ -402,7 +402,7 @@ type AnnotatedTextEdit struct {
 	AnnotationID ChangeAnnotationIdentifier `json:"annotationId"`
 }
 
-// https://microsoft.github.io/language-server-protocol/specification#textDocumentEdit
+// https://microsoft.github.io/language-server-protocol/specifications/specification-3-16#textDocumentEdit
 
 type TextDocumentEdit struct {
 	/**
@@ -449,7 +449,7 @@ func (self *TextDocumentEdit) UnmarshalJSON(data []byte) error {
 	}
 }
 
-// https://microsoft.github.io/language-server-protocol/specification#resourceChanges
+// https://microsoft.github.io/language-server-protocol/specifications/specification-3-16#resourceChanges
 
 /**
  * Options to create a file.
@@ -582,7 +582,7 @@ type DeleteFile struct {
 	AnnotationID *ChangeAnnotationIdentifier `json:"annotationId,omitempty"`
 }
 
-// https://microsoft.github.io/language-server-protocol/specification#workspaceEdit
+// https://microsoft.github.io/language-server-protocol/specifications/specification-3-16#workspaceEdit
 
 type WorkspaceEdit struct {
 	/**
@@ -662,7 +662,7 @@ func (self *WorkspaceEdit) UnmarshalJSON(data []byte) error {
 	}
 }
 
-// https://microsoft.github.io/language-server-protocol/specification#workspaceEditClientCapabilities
+// https://microsoft.github.io/language-server-protocol/specifications/specification-3-16#workspaceEditClientCapabilities
 
 type WorkspaceEditClientCapabilities struct {
 	/**
@@ -764,7 +764,7 @@ const (
 	FailureHandlingKindUndo = FailureHandlingKind("undo")
 )
 
-// https://microsoft.github.io/language-server-protocol/specification#textDocumentIdentifier
+// https://microsoft.github.io/language-server-protocol/specifications/specification-3-16#textDocumentIdentifier
 
 type TextDocumentIdentifier struct {
 	/**
@@ -773,7 +773,7 @@ type TextDocumentIdentifier struct {
 	URI DocumentUri `json:"uri"`
 }
 
-// https://microsoft.github.io/language-server-protocol/specification#textDocumentItem
+// https://microsoft.github.io/language-server-protocol/specifications/specification-3-16#textDocumentItem
 
 type TextDocumentItem struct {
 	/**
@@ -798,7 +798,7 @@ type TextDocumentItem struct {
 	Text string `json:"text"`
 }
 
-// https://microsoft.github.io/language-server-protocol/specification#versionedTextDocumentIdentifier
+// https://microsoft.github.io/language-server-protocol/specifications/specification-3-16#versionedTextDocumentIdentifier
 
 type VersionedTextDocumentIdentifier struct {
 	TextDocumentIdentifier
@@ -829,7 +829,7 @@ type OptionalVersionedTextDocumentIdentifier struct {
 	Version *Integer `json:"version"`
 }
 
-// https://microsoft.github.io/language-server-protocol/specification#textDocumentPositionParams
+// https://microsoft.github.io/language-server-protocol/specifications/specification-3-16#textDocumentPositionParams
 
 type TextDocumentPositionParams struct {
 	/**
@@ -843,7 +843,7 @@ type TextDocumentPositionParams struct {
 	Position Position `json:"position"`
 }
 
-// https://microsoft.github.io/language-server-protocol/specification#documentFilter
+// https://microsoft.github.io/language-server-protocol/specifications/specification-3-16#documentFilter
 
 type DocumentFilter struct {
 	/**
@@ -876,7 +876,7 @@ type DocumentFilter struct {
 
 type DocumentSelector []DocumentFilter
 
-// https://microsoft.github.io/language-server-protocol/specification#staticRegistrationOptions
+// https://microsoft.github.io/language-server-protocol/specifications/specification-3-16#staticRegistrationOptions
 
 /**
  * Static registration options to be returned in the initialize request.
@@ -889,7 +889,7 @@ type StaticRegistrationOptions struct {
 	ID *string `json:"id,omitempty"`
 }
 
-// https://microsoft.github.io/language-server-protocol/specification#textDocumentRegistrationOptions
+// https://microsoft.github.io/language-server-protocol/specifications/specification-3-16#textDocumentRegistrationOptions
 
 /**
  * General text document registration options.
@@ -902,7 +902,7 @@ type TextDocumentRegistrationOptions struct {
 	DocumentSelector *DocumentSelector `json:"documentSelector"`
 }
 
-// https://microsoft.github.io/language-server-protocol/specification#markupContent
+// https://microsoft.github.io/language-server-protocol/specifications/specification-3-16#markupContent
 
 /**
  * Describes the content type that a client supports in various
@@ -980,7 +980,7 @@ type MarkdownClientCapabilities struct {
 	Version *string `json:"version,omitempty"`
 }
 
-// https://microsoft.github.io/language-server-protocol/specification#workDoneProgress
+// https://microsoft.github.io/language-server-protocol/specifications/specification-3-16#workDoneProgress
 
 type WorkDoneProgressBegin struct {
 	Kind string `json:"kind"` // == "begin"
@@ -1073,7 +1073,7 @@ type WorkDoneProgressOptions struct {
 	WorkDoneProgress *bool `json:"workDoneProgress,omitempty"`
 }
 
-// https://microsoft.github.io/language-server-protocol/specification#partialResults
+// https://microsoft.github.io/language-server-protocol/specifications/specification-3-16#partialResults
 
 type PartialResultParams struct {
 	/**
@@ -1083,7 +1083,7 @@ type PartialResultParams struct {
 	PartialResultToken *ProgressToken `json:"partialResultToken,omitempty"`
 }
 
-// https://microsoft.github.io/language-server-protocol/specification#traceValue
+// https://microsoft.github.io/language-server-protocol/specifications/specification-3-16#traceValue
 
 type TraceValue string
 

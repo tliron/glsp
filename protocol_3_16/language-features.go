@@ -6,7 +6,7 @@ import (
 	"github.com/tliron/glsp"
 )
 
-// https://microsoft.github.io/language-server-protocol/specification#textDocument_completion
+// https://microsoft.github.io/language-server-protocol/specifications/specification-3-16#textDocument_completion
 
 type CompletionClientCapabilities struct {
 	/**
@@ -589,13 +589,13 @@ const (
 	CompletionItemKindTypeParameter = CompletionItemKind(25)
 )
 
-// https://microsoft.github.io/language-server-protocol/specification#completionItem_resolve
+// https://microsoft.github.io/language-server-protocol/specifications/specification-3-16#completionItem_resolve
 
 const MethodCompletionItemResolve = Method("completionItem/resolve")
 
 type CompletionItemResolveFunc func(context *glsp.Context, params *CompletionItem) (*CompletionItem, error)
 
-// https://microsoft.github.io/language-server-protocol/specification#textDocument_hover
+// https://microsoft.github.io/language-server-protocol/specifications/specification-3-16#textDocument_hover
 
 type HoverClientCapabilities struct {
 	/**
@@ -725,7 +725,7 @@ func (self MarkedString) UnmarshalJSON(data []byte) error {
 	}
 }
 
-// https://microsoft.github.io/language-server-protocol/specification#textDocument_signatureHelp
+// https://microsoft.github.io/language-server-protocol/specifications/specification-3-16#textDocument_signatureHelp
 
 type SignatureHelpClientCapabilities struct {
 	/**
@@ -1054,7 +1054,7 @@ func (self *ParameterInformation) UnmarshalJSON(data []byte) error {
 	}
 }
 
-// https://microsoft.github.io/language-server-protocol/specification#textDocument_declaration
+// https://microsoft.github.io/language-server-protocol/specifications/specification-3-16#textDocument_declaration
 
 type DeclarationClientCapabilities struct {
 	/**
@@ -1091,7 +1091,7 @@ type DeclarationParams struct {
 	PartialResultParams
 }
 
-// https://microsoft.github.io/language-server-protocol/specification#textDocument_definition
+// https://microsoft.github.io/language-server-protocol/specifications/specification-3-16#textDocument_definition
 
 type DefinitionClientCapabilities struct {
 	/**
@@ -1127,7 +1127,7 @@ type DefinitionParams struct {
 	PartialResultParams
 }
 
-// https://microsoft.github.io/language-server-protocol/specification#textDocument_typeDefinition
+// https://microsoft.github.io/language-server-protocol/specifications/specification-3-16#textDocument_typeDefinition
 
 type TypeDefinitionClientCapabilities struct {
 	/**
@@ -1166,7 +1166,7 @@ type TypeDefinitionParams struct {
 	PartialResultParams
 }
 
-// https://microsoft.github.io/language-server-protocol/specification#textDocument_implementation
+// https://microsoft.github.io/language-server-protocol/specifications/specification-3-16#textDocument_implementation
 
 type ImplementationClientCapabilities struct {
 	/**
@@ -1205,7 +1205,7 @@ type ImplementationParams struct {
 	PartialResultParams
 }
 
-// https://microsoft.github.io/language-server-protocol/specification#textDocument_references
+// https://microsoft.github.io/language-server-protocol/specifications/specification-3-16#textDocument_references
 
 type ReferenceClientCapabilities struct {
 	/**
@@ -1242,7 +1242,7 @@ type ReferenceContext struct {
 	IncludeDeclaration bool `json:"includeDeclaration"`
 }
 
-// https://microsoft.github.io/language-server-protocol/specification#textDocument_documentHighlight
+// https://microsoft.github.io/language-server-protocol/specifications/specification-3-16#textDocument_documentHighlight
 
 type DocumentHighlightClientCapabilities struct {
 	/**
@@ -1310,7 +1310,7 @@ const (
 	DocumentHighlightKindWrite = DocumentHighlightKind(3)
 )
 
-// https://microsoft.github.io/language-server-protocol/specification#textDocument_documentSymbol
+// https://microsoft.github.io/language-server-protocol/specifications/specification-3-16#textDocument_documentSymbol
 
 type DocumentSymbolClientCapabilities struct {
 	/**
@@ -1553,7 +1553,7 @@ type SymbolInformation struct {
 	ContainerName *string `json:"containerName,omitempty"`
 }
 
-// https://microsoft.github.io/language-server-protocol/specification#textDocument_codeAction
+// https://microsoft.github.io/language-server-protocol/specifications/specification-3-16#textDocument_codeAction
 
 type CodeActionClientCapabilities struct {
 	/**
@@ -1878,13 +1878,13 @@ type CodeAction struct {
 	Data interface{} `json:"data,omitempty"`
 }
 
-// https://microsoft.github.io/language-server-protocol/specification#codeAction_resolve
+// https://microsoft.github.io/language-server-protocol/specifications/specification-3-16#codeAction_resolve
 
 const MethodCodeActionResolve = Method("codeAction/resolve")
 
 type CodeActionResolveFunc func(context *glsp.Context, params *CodeAction) (*CodeAction, error)
 
-// https://microsoft.github.io/language-server-protocol/specification#textDocument_codeLens
+// https://microsoft.github.io/language-server-protocol/specifications/specification-3-16#textDocument_codeLens
 
 type CodeLensClientCapabilities struct {
 	/**
@@ -1948,13 +1948,13 @@ type CodeLens struct {
 	Data interface{} `json:"data,omitempty"`
 }
 
-// https://microsoft.github.io/language-server-protocol/specification#codeLens_resolve
+// https://microsoft.github.io/language-server-protocol/specifications/specification-3-16#codeLens_resolve
 
 const MethodCodeLensResolve = Method("codeLens/resolve")
 
 type CodeLensResolveFunc func(context *glsp.Context, params *CodeLens) (*CodeLens, error)
 
-// https://microsoft.github.io/language-server-protocol/specification#codeLens_refresh
+// https://microsoft.github.io/language-server-protocol/specifications/specification-3-16#codeLens_refresh
 
 type CodeLensWorkspaceClientCapabilities struct {
 	/**
@@ -1971,7 +1971,7 @@ type CodeLensWorkspaceClientCapabilities struct {
 
 const ServerWorkspaceCodeLensRefresh = Method("workspace/codeLens/refresh")
 
-// https://microsoft.github.io/language-server-protocol/specification#textDocument_documentLink
+// https://microsoft.github.io/language-server-protocol/specifications/specification-3-16#textDocument_documentLink
 
 type DocumentLinkClientCapabilities struct {
 	/**
@@ -2049,13 +2049,13 @@ type DocumentLink struct {
 	Data interface{} `json:"data,omitempty"`
 }
 
-// https://microsoft.github.io/language-server-protocol/specification#documentLink_resolve
+// https://microsoft.github.io/language-server-protocol/specifications/specification-3-16#documentLink_resolve
 
 const MethodDocumentLinkResolve = Method("documentLink/resolve")
 
 type DocumentLinkResolveFunc func(context *glsp.Context, params *DocumentLink) (*DocumentLink, error)
 
-// https://microsoft.github.io/language-server-protocol/specification#textDocument_documentColor
+// https://microsoft.github.io/language-server-protocol/specifications/specification-3-16#textDocument_documentColor
 
 type DocumentColorClientCapabilities struct {
 	/**
@@ -2125,7 +2125,7 @@ type Color struct {
 	Alpha Decimal `json:"alpha"`
 }
 
-// https://microsoft.github.io/language-server-protocol/specification#textDocument_colorPresentation
+// https://microsoft.github.io/language-server-protocol/specifications/specification-3-16#textDocument_colorPresentation
 
 const MethodTextDocumentColorPresentation = Method("textDocument/colorPresentation")
 
@@ -2174,7 +2174,7 @@ type ColorPresentation struct {
 	AdditionalTextEdits []TextEdit `json:"additionalTextEdits,omitempty"`
 }
 
-// https://microsoft.github.io/language-server-protocol/specification#textDocument_formatting
+// https://microsoft.github.io/language-server-protocol/specifications/specification-3-16#textDocument_formatting
 
 type DocumentFormattingClientCapabilities struct {
 	/**
@@ -2248,7 +2248,7 @@ const (
 	FormattingOptionTrimFinalNewlines = "trimFinalNewlines"
 )
 
-// https://microsoft.github.io/language-server-protocol/specification#textDocument_rangeFormatting
+// https://microsoft.github.io/language-server-protocol/specifications/specification-3-16#textDocument_rangeFormatting
 
 type DocumentRangeFormattingClientCapabilities struct {
 	/**
@@ -2289,7 +2289,7 @@ type DocumentRangeFormattingParams struct {
 	Options FormattingOptions `json:"options"`
 }
 
-// https://microsoft.github.io/language-server-protocol/specification#textDocument_onTypeFormatting
+// https://microsoft.github.io/language-server-protocol/specifications/specification-3-16#textDocument_onTypeFormatting
 
 type DocumentOnTypeFormattingClientCapabilities struct {
 	/**
@@ -2332,7 +2332,7 @@ type DocumentOnTypeFormattingParams struct {
 	Options FormattingOptions `json:"options"`
 }
 
-// https://microsoft.github.io/language-server-protocol/specification#textDocument_rename
+// https://microsoft.github.io/language-server-protocol/specifications/specification-3-16#textDocument_rename
 
 type PrepareSupportDefaultBehavior Integer
 
@@ -2411,7 +2411,7 @@ type RenameParams struct {
 	NewName string `json:"newName"`
 }
 
-// https://microsoft.github.io/language-server-protocol/specification#textDocument_prepareRename
+// https://microsoft.github.io/language-server-protocol/specifications/specification-3-16#textDocument_prepareRename
 
 const MethodTextDocumentPrepareRename = Method("textDocument/prepareRename")
 
@@ -2431,7 +2431,7 @@ type DefaultBehavior struct {
 	DefaultBehavior bool `json:"defaultBehavior"`
 }
 
-// https://microsoft.github.io/language-server-protocol/specification#textDocument_foldingRange
+// https://microsoft.github.io/language-server-protocol/specifications/specification-3-16#textDocument_foldingRange
 
 type FoldingRangeClientCapabilities struct {
 	/**
@@ -2544,7 +2544,7 @@ type FoldingRange struct {
 	Kind *string `json:"kind,omitempty"`
 }
 
-// https://microsoft.github.io/language-server-protocol/specification#textDocument_selectionRange
+// https://microsoft.github.io/language-server-protocol/specifications/specification-3-16#textDocument_selectionRange
 
 type SelectionRangeClientCapabilities struct {
 	/**
@@ -2598,7 +2598,7 @@ type SelectionRange struct {
 	Parent *SelectionRange `json:"parent,omitempty"`
 }
 
-// https://microsoft.github.io/language-server-protocol/specification#textDocument_prepareCallHierarchy
+// https://microsoft.github.io/language-server-protocol/specifications/specification-3-16#textDocument_prepareCallHierarchy
 
 type CallHierarchyClientCapabilities struct {
 	/**
@@ -2675,7 +2675,7 @@ type CallHierarchyItem struct {
 	Data interface{} `json:"data,omitempty"`
 }
 
-// https://microsoft.github.io/language-server-protocol/specification#callHierarchy_incomingCalls
+// https://microsoft.github.io/language-server-protocol/specifications/specification-3-16#callHierarchy_incomingCalls
 
 const MethodCallHierarchyIncomingCalls = Method("callHierarchy/incomingCalls")
 
@@ -2701,7 +2701,7 @@ type CallHierarchyIncomingCall struct {
 	FromRanges []Range `json:"fromRanges"`
 }
 
-// https://microsoft.github.io/language-server-protocol/specification#callHierarchy_outgoingCalls
+// https://microsoft.github.io/language-server-protocol/specifications/specification-3-16#callHierarchy_outgoingCalls
 
 const MethodCallHierarchyOutgoingCalls = Method("callHierarchy/outgoingCalls")
 
@@ -2727,7 +2727,7 @@ type CallHierarchyOutgoingCall struct {
 	FromRanges []Range `json:"fromRanges"`
 }
 
-// https://microsoft.github.io/language-server-protocol/specification#textDocument_semanticTokens
+// https://microsoft.github.io/language-server-protocol/specifications/specification-3-16#textDocument_semanticTokens
 
 type SemanticTokenType string
 
@@ -3106,7 +3106,7 @@ type SemanticTokensWorkspaceClientCapabilities struct {
 	RefreshSupport *bool `json:"refreshSupport,omitempty"`
 }
 
-// https://microsoft.github.io/language-server-protocol/specification#textDocument_linkedEditingRange
+// https://microsoft.github.io/language-server-protocol/specifications/specification-3-16#textDocument_linkedEditingRange
 
 type LinkedEditingRangeClientCapabilities struct {
 	/**
@@ -3152,7 +3152,7 @@ type LinkedEditingRanges struct {
 	WordPattern *string `json:"wordPattern,omitempty"`
 }
 
-// https://microsoft.github.io/language-server-protocol/specification#textDocument_moniker
+// https://microsoft.github.io/language-server-protocol/specifications/specification-3-16#textDocument_moniker
 
 type MonikerClientCapabilities struct {
 	/**

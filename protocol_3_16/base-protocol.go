@@ -12,7 +12,7 @@ var False bool = false
 
 type Method = string
 
-// https://microsoft.github.io/language-server-protocol/specification#number
+// https://microsoft.github.io/language-server-protocol/specifications/specification-3-16#number
 
 /**
  * Defines an integer number in the range of -2^31 to 2^31 - 1.
@@ -94,7 +94,7 @@ func (self BoolOrString) String() string {
 	}
 }
 
-// https://microsoft.github.io/language-server-protocol/specification#cancelRequest
+// https://microsoft.github.io/language-server-protocol/specifications/specification-3-16#cancelRequest
 
 const MethodCancelRequest = Method("$/cancelRequest")
 
@@ -107,7 +107,7 @@ type CancelParams struct {
 	ID IntegerOrString `json:"id"`
 }
 
-// https://microsoft.github.io/language-server-protocol/specification#progress
+// https://microsoft.github.io/language-server-protocol/specifications/specification-3-16#progress
 
 const MethodProgress = Method("$/progress")
 

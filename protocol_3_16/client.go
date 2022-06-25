@@ -1,6 +1,6 @@
 package protocol
 
-// https://microsoft.github.io/language-server-protocol/specification#client_registerCapability
+// https://microsoft.github.io/language-server-protocol/specifications/specification-3-16#client_registerCapability
 
 /**
  * General parameters to register for a capability.
@@ -29,7 +29,7 @@ type RegistrationParams struct {
 	Registrations []Registration `json:"registrations"`
 }
 
-// https://microsoft.github.io/language-server-protocol/specification#client_unregisterCapability
+// https://microsoft.github.io/language-server-protocol/specifications/specification-3-16#client_unregisterCapability
 
 /**
  * General parameters to unregister a capability.

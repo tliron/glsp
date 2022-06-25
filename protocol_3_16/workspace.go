@@ -2,7 +2,7 @@ package protocol
 
 import "github.com/tliron/glsp"
 
-// https://microsoft.github.io/language-server-protocol/specification#workspace_workspaceFolders
+// https://microsoft.github.io/language-server-protocol/specifications/specification-3-16#workspace_workspaceFolders
 
 const ServerWorkspaceWorkspaceFolders = Method("workspace/workspaceFolders")
 
@@ -37,7 +37,7 @@ type WorkspaceFolder struct {
 	Name string `json:"name"`
 }
 
-// https://microsoft.github.io/language-server-protocol/specification#workspace_didChangeWorkspaceFolders
+// https://microsoft.github.io/language-server-protocol/specifications/specification-3-16#workspace_didChangeWorkspaceFolders
 
 const MethodWorkspaceDidChangeWorkspaceFolders = Method("workspace/didChangeWorkspaceFolders")
 
@@ -65,7 +65,7 @@ type WorkspaceFoldersChangeEvent struct {
 	Removed []WorkspaceFolder `json:"removed"`
 }
 
-// https://microsoft.github.io/language-server-protocol/specification#workspace_didChangeConfiguration
+// https://microsoft.github.io/language-server-protocol/specifications/specification-3-16#workspace_didChangeConfiguration
 
 type DidChangeConfigurationClientCapabilities struct {
 	/**
@@ -85,7 +85,7 @@ type DidChangeConfigurationParams struct {
 	Settings interface{} `json:"settings"`
 }
 
-// https://microsoft.github.io/language-server-protocol/specification#workspace_configuration
+// https://microsoft.github.io/language-server-protocol/specifications/specification-3-16#workspace_configuration
 
 const ServerWorkspaceConfiguration = Method("workspace/configuration")
 
@@ -105,7 +105,7 @@ type ConfigurationItem struct {
 	Section *string `json:"section,omitempty"`
 }
 
-// https://microsoft.github.io/language-server-protocol/specification#workspace_didChangeWatchedFiles
+// https://microsoft.github.io/language-server-protocol/specifications/specification-3-16#workspace_didChangeWatchedFiles
 
 type DidChangeWatchedFilesClientCapabilities struct {
 	/**
@@ -214,7 +214,7 @@ const (
 	FileChangeTypeDeleted = UInteger(3)
 )
 
-// https://microsoft.github.io/language-server-protocol/specification#workspace_symbol
+// https://microsoft.github.io/language-server-protocol/specifications/specification-3-16#workspace_symbol
 
 type WorkspaceSymbolClientCapabilities struct {
 	/**
@@ -277,7 +277,7 @@ type WorkspaceSymbolParams struct {
 	Query string `json:"query"`
 }
 
-// https://microsoft.github.io/language-server-protocol/specification#workspace_executeCommand
+// https://microsoft.github.io/language-server-protocol/specifications/specification-3-16#workspace_executeCommand
 
 type ExecuteCommandClientCapabilities struct {
 	/**
@@ -320,7 +320,7 @@ type ExecuteCommandParams struct {
 	Arguments []interface{} `json:"arguments,omitempty"`
 }
 
-// https://microsoft.github.io/language-server-protocol/specification#workspace_applyEdit
+// https://microsoft.github.io/language-server-protocol/specifications/specification-3-16#workspace_applyEdit
 
 const ServerWorkspaceApplyEdit = Method("workspace/applyEdit")
 
@@ -360,7 +360,7 @@ type ApplyWorkspaceEditResponse struct {
 	FailedChange *UInteger `json:"failedChange,omitempty"`
 }
 
-// https://microsoft.github.io/language-server-protocol/specification#workspace_willCreateFiles
+// https://microsoft.github.io/language-server-protocol/specifications/specification-3-16#workspace_willCreateFiles
 
 /**
  * The options to register for file operations.
@@ -489,13 +489,13 @@ type FileCreate struct {
 	URI string `json:"uri"`
 }
 
-// https://microsoft.github.io/language-server-protocol/specification#workspace_didCreateFiles
+// https://microsoft.github.io/language-server-protocol/specifications/specification-3-16#workspace_didCreateFiles
 
 const MethodWorkspaceDidCreateFiles = Method("workspace/didCreateFiles")
 
 type WorkspaceDidCreateFilesFunc func(context *glsp.Context, params *CreateFilesParams) error
 
-// https://microsoft.github.io/language-server-protocol/specification#workspace_willRenameFiles
+// https://microsoft.github.io/language-server-protocol/specifications/specification-3-16#workspace_willRenameFiles
 
 const MethodWorkspaceWillRenameFiles = Method("workspace/willRenameFiles")
 
@@ -532,13 +532,13 @@ type FileRename struct {
 	NewURI string `json:"newUri"`
 }
 
-// https://microsoft.github.io/language-server-protocol/specification#workspace_didRenameFiles
+// https://microsoft.github.io/language-server-protocol/specifications/specification-3-16#workspace_didRenameFiles
 
 const MethodWorkspaceDidRenameFiles = Method("workspace/didRenameFiles")
 
 type WorkspaceDidRenameFilesFunc func(context *glsp.Context, params *RenameFilesParams) error
 
-// https://microsoft.github.io/language-server-protocol/specification#workspace_willDeleteFiles
+// https://microsoft.github.io/language-server-protocol/specifications/specification-3-16#workspace_willDeleteFiles
 
 const MethodWorkspaceWillDeleteFiles = Method("workspace/willDeleteFiles")
 
@@ -569,7 +569,7 @@ type FileDelete struct {
 	URI string `json:"uri"`
 }
 
-// https://microsoft.github.io/language-server-protocol/specification#workspace_didDeleteFiles
+// https://microsoft.github.io/language-server-protocol/specifications/specification-3-16#workspace_didDeleteFiles
 
 const MethodWorkspaceDidDeleteFiles = Method("workspace/didDeleteFiles")
 

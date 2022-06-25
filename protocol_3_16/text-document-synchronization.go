@@ -6,7 +6,7 @@ import (
 	"github.com/tliron/glsp"
 )
 
-// https://microsoft.github.io/language-server-protocol/specification#textDocument_synchronization
+// https://microsoft.github.io/language-server-protocol/specifications/specification-3-16#textDocument_synchronization
 
 type TextDocumentSyncKind Integer
 
@@ -34,7 +34,7 @@ const (
 	TextDocumentSyncKindIncremental = TextDocumentSyncKind(2)
 )
 
-// https://microsoft.github.io/language-server-protocol/specification#textDocument_didOpen
+// https://microsoft.github.io/language-server-protocol/specifications/specification-3-16#textDocument_didOpen
 
 const MethodTextDocumentDidOpen = Method("textDocument/didOpen")
 
@@ -47,7 +47,7 @@ type DidOpenTextDocumentParams struct {
 	TextDocument TextDocumentItem `json:"textDocument"`
 }
 
-// https://microsoft.github.io/language-server-protocol/specification#textDocument_didChange
+// https://microsoft.github.io/language-server-protocol/specifications/specification-3-16#textDocument_didChange
 
 /**
  * Describe options to be used when registering for text document change events.
@@ -154,7 +154,7 @@ type TextDocumentContentChangeEventWhole struct {
 	Text string `json:"text"`
 }
 
-// https://microsoft.github.io/language-server-protocol/specification#textDocument_willSave
+// https://microsoft.github.io/language-server-protocol/specifications/specification-3-16#textDocument_willSave
 
 const MethodTextDocumentWillSave = Method("textDocument/willSave")
 
@@ -198,13 +198,13 @@ const (
 	TextDocumentSaveReasonFocusOut = TextDocumentSaveReason(3)
 )
 
-// https://microsoft.github.io/language-server-protocol/specification#textDocument_willSaveWaitUntil
+// https://microsoft.github.io/language-server-protocol/specifications/specification-3-16#textDocument_willSaveWaitUntil
 
 const MethodTextDocumentWillSaveWaitUntil = Method("textDocument/willSaveWaitUntil")
 
 type TextDocumentWillSaveWaitUntilFunc func(context *glsp.Context, params *WillSaveTextDocumentParams) ([]TextEdit, error)
 
-// https://microsoft.github.io/language-server-protocol/specification#textDocument_didSave
+// https://microsoft.github.io/language-server-protocol/specifications/specification-3-16#textDocument_didSave
 
 type SaveOptions struct {
 	/**
@@ -239,7 +239,7 @@ type DidSaveTextDocumentParams struct {
 	Text *string `json:"text,omitempty"`
 }
 
-// https://microsoft.github.io/language-server-protocol/specification#textDocument_didClose
+// https://microsoft.github.io/language-server-protocol/specifications/specification-3-16#textDocument_didClose
 
 type TextDocumentSyncClientCapabilities struct {
 	/**

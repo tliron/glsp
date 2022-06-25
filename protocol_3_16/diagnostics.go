@@ -1,6 +1,6 @@
 package protocol
 
-// https://microsoft.github.io/language-server-protocol/specification#textDocument_publishDiagnostics
+// https://microsoft.github.io/language-server-protocol/specifications/specification-3-16#textDocument_publishDiagnostics
 
 type PublishDiagnosticsClientCapabilities struct {
 	/**

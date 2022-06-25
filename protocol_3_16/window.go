@@ -2,7 +2,7 @@ package protocol
 
 import "github.com/tliron/glsp"
 
-// https://microsoft.github.io/language-server-protocol/specification#window_showMessage
+// https://microsoft.github.io/language-server-protocol/specifications/specification-3-16#window_showMessage
 
 const ServerWindowShowMessage = Method("window/showMessage")
 
@@ -42,7 +42,7 @@ const (
 	MessageTypeLog = MessageType(4)
 )
 
-// https://microsoft.github.io/language-server-protocol/specification#window_showMessageRequest
+// https://microsoft.github.io/language-server-protocol/specifications/specification-3-16#window_showMessageRequest
 
 type ShowMessageRequestClientCapabilities struct {
 	/**
@@ -84,7 +84,7 @@ type MessageActionItem struct {
 	Title string `json:"title"`
 }
 
-// https://microsoft.github.io/language-server-protocol/specification#window_showDocument
+// https://microsoft.github.io/language-server-protocol/specifications/specification-3-16#window_showDocument
 
 /**
  * Client capabilities for the show document request.
@@ -148,7 +148,7 @@ type ShowDocumentResult struct {
 	Success bool `json:"success"`
 }
 
-// https://microsoft.github.io/language-server-protocol/specification#window_logMessage
+// https://microsoft.github.io/language-server-protocol/specifications/specification-3-16#window_logMessage
 
 const ServerWindowLogMessage = Method("window/logMessage")
 
@@ -164,7 +164,7 @@ type LogMessageParams struct {
 	Message string `json:"message"`
 }
 
-// https://microsoft.github.io/language-server-protocol/specification#window_workDoneProgress_create
+// https://microsoft.github.io/language-server-protocol/specifications/specification-3-16#window_workDoneProgress_create
 
 const ServerWindowWorkDoneProgressCreate = Method("window/workDoneProgress/create")
 
@@ -175,7 +175,7 @@ type WorkDoneProgressCreateParams struct {
 	Token ProgressToken `json:"token"`
 }
 
-// https://microsoft.github.io/language-server-protocol/specification#window_workDoneProgress_cancel
+// https://microsoft.github.io/language-server-protocol/specifications/specification-3-16#window_workDoneProgress_cancel
 
 const MethodWindowWorkDoneProgressCancel = Method("window/workDoneProgress/cancel")
 
