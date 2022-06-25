@@ -87,7 +87,7 @@ type Handler struct {
 }
 
 // glsp.Handler interface
-func (self *Handler) Handle(context *glsp.Context) (r interface{}, validMethod bool, validParams bool, err error) {
+func (self *Handler) Handle(context *glsp.Context) (r any, validMethod bool, validParams bool, err error) {
 	if !self.IsInitialized() && (context.Method != MethodInitialize) {
 		return nil, true, true, errors.New("server not initialized")
 	}

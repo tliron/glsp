@@ -20,7 +20,7 @@ type Registration struct {
 	/**
 	 * Options necessary for the registration.
 	 */
-	RegisterOptions interface{} `json:"registerOptions,omitempty"`
+	RegisterOptions any `json:"registerOptions,omitempty"`
 }
 
 const ServerClientRegisterCapability = Method("client/registerCapability")

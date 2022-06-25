@@ -82,7 +82,7 @@ type DidChangeConfigurationParams struct {
 	/**
 	 * The actual changed settings
 	 */
-	Settings interface{} `json:"settings"`
+	Settings any `json:"settings"`
 }
 
 // https://microsoft.github.io/language-server-protocol/specifications/specification-3-16#workspace_configuration
@@ -304,7 +304,7 @@ type ExecuteCommandRegistrationOptions struct {
 
 const MethodWorkspaceExecuteCommand = Method("workspace/executeCommand")
 
-type WorkspaceExecuteCommandFunc func(context *glsp.Context, params *ExecuteCommandParams) (interface{}, error)
+type WorkspaceExecuteCommandFunc func(context *glsp.Context, params *ExecuteCommandParams) (any, error)
 
 type ExecuteCommandParams struct {
 	WorkDoneProgressParams
@@ -317,7 +317,7 @@ type ExecuteCommandParams struct {
 	/**
 	 * Arguments that the command should be invoked with.
 	 */
-	Arguments []interface{} `json:"arguments,omitempty"`
+	Arguments []any `json:"arguments,omitempty"`
 }
 
 // https://microsoft.github.io/language-server-protocol/specifications/specification-3-16#workspace_applyEdit

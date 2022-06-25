@@ -34,7 +34,7 @@ type UInteger = uint32
 type Decimal = float32
 
 type IntegerOrString struct {
-	Value interface{} // Integer | string
+	Value any // Integer | string
 }
 
 // json.Marshaler interface
@@ -60,7 +60,7 @@ func (self IntegerOrString) UnmarshalJSON(data []byte) error {
 }
 
 type BoolOrString struct {
-	Value interface{} // bool | string
+	Value any // bool | string
 }
 
 // json.Marshaler interface
@@ -122,7 +122,7 @@ type ProgressParams struct {
 	/**
 	 * The progress data.
 	 */
-	Value interface{} `json:"value"`
+	Value any `json:"value"`
 }
 
 type ProgressToken = IntegerOrString

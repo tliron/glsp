@@ -168,7 +168,7 @@ type CompletionRegistrationOptions struct {
 const MethodTextDocumentCompletion = Method("textDocument/completion")
 
 // Returns: []CompletionItem | CompletionList | nil
-type TextDocumentCompletionFunc func(context *glsp.Context, params *CompletionParams) (interface{}, error)
+type TextDocumentCompletionFunc func(context *glsp.Context, params *CompletionParams) (any, error)
 
 type CompletionParams struct {
 	TextDocumentPositionParams
@@ -364,7 +364,7 @@ type CompletionItem struct {
 	/**
 	 * A human-readable string that represents a doc-comment.
 	 */
-	Documentation interface{} `json:"documentation,omitempty"` // nil | string | MarkupContent
+	Documentation any `json:"documentation,omitempty"` // nil | string | MarkupContent
 
 	/**
 	 * Indicates if this item is deprecated.
@@ -448,7 +448,7 @@ type CompletionItem struct {
 	 *
 	 * @since 3.16.0 additional type `InsertReplaceEdit`
 	 */
-	TextEdit interface{} `json:"textEdit,omitempty"` // nil | TextEdit | InsertReplaceEdit
+	TextEdit any `json:"textEdit,omitempty"` // nil | TextEdit | InsertReplaceEdit
 
 	/**
 	 * An optional array of additional text edits that are applied when
@@ -480,7 +480,7 @@ type CompletionItem struct {
 	 * A data entry field that is preserved on a completion item between
 	 * a completion and a completion resolve request.
 	 */
-	Data interface{} `json:"data,omitempty"`
+	Data any `json:"data,omitempty"`
 }
 
 // json.Unmarshaler interface
@@ -502,7 +502,7 @@ func (self *CompletionItem) UnmarshalJSON(data []byte) error {
 		AdditionalTextEdits []TextEdit          `json:"additionalTextEdits,omitempty"`
 		CommitCharacters    []string            `json:"commitCharacters,omitempty"`
 		Command             *Command            `json:"command,omitempty"`
-		Data                interface{}         `json:"data,omitempty"`
+		Data                any                 `json:"data,omitempty"`
 	}
 
 	if err := json.Unmarshal(data, &value); err == nil {
@@ -636,7 +636,7 @@ type Hover struct {
 	/**
 	 * The hover's content
 	 */
-	Contents interface{} `json:"contents"` // MarkupContent | MarkedString | []MarkedString
+	Contents any `json:"contents"` // MarkupContent | MarkedString | []MarkedString
 
 	/**
 	 * An optional range is a range inside a text document
@@ -695,7 +695,7 @@ func (self *Hover) UnmarshalJSON(data []byte) error {
  * @deprecated use MarkupContent instead.
  */
 type MarkedString struct {
-	value interface{} // string | MarkedStringStruct
+	value any // string | MarkedStringStruct
 }
 
 type MarkedStringStruct struct {
@@ -937,7 +937,7 @@ type SignatureInformation struct {
 	 * The human-readable doc-comment of this signature. Will be shown
 	 * in the UI but can be omitted.
 	 */
-	Documentation interface{} `json:"documentation,omitempty"` // nil | string | MarkupContent
+	Documentation any `json:"documentation,omitempty"` // nil | string | MarkupContent
 
 	/**
 	 * The parameters of this signature.
@@ -1005,13 +1005,13 @@ type ParameterInformation struct {
 	 * signature label. Its intended use case is to highlight the parameter
 	 * label part in the `SignatureInformation.label`.
 	 */
-	Label interface{} `json:"label"` // string | [2]UInteger
+	Label any `json:"label"` // string | [2]UInteger
 
 	/**
 	 * The human-readable doc-comment of this parameter. Will be shown
 	 * in the UI but can be omitted.
 	 */
-	Documentation interface{} `json:"documentation,omitempty"` // nil | string | MarkupContent
+	Documentation any `json:"documentation,omitempty"` // nil | string | MarkupContent
 }
 
 // json.Unmarshaler interface
@@ -1083,7 +1083,7 @@ type DeclarationRegistrationOptions struct {
 const MethodTextDocumentDeclaration = Method("textDocument/declaration")
 
 // Returns: Location | []Location | []LocationLink | nil
-type TextDocumentDeclarationFunc func(context *glsp.Context, params *DeclarationParams) (interface{}, error)
+type TextDocumentDeclarationFunc func(context *glsp.Context, params *DeclarationParams) (any, error)
 
 type DeclarationParams struct {
 	TextDocumentPositionParams
@@ -1119,7 +1119,7 @@ type DefinitionRegistrationOptions struct {
 const MethodTextDocumentDefinition = Method("textDocument/definition")
 
 // Returns: Location | []Location | []LocationLink | nil
-type TextDocumentDefinitionFunc func(context *glsp.Context, params *DefinitionParams) (interface{}, error)
+type TextDocumentDefinitionFunc func(context *glsp.Context, params *DefinitionParams) (any, error)
 
 type DefinitionParams struct {
 	TextDocumentPositionParams
@@ -1158,7 +1158,7 @@ type TypeDefinitionRegistrationOptions struct {
 const MethodTextDocumentTypeDefinition = Method("textDocument/typeDefinition")
 
 // Returns: Location | []Location | []LocationLink | nil
-type TextDocumentTypeDefinitionFunc func(context *glsp.Context, params *TypeDefinitionParams) (interface{}, error)
+type TextDocumentTypeDefinitionFunc func(context *glsp.Context, params *TypeDefinitionParams) (any, error)
 
 type TypeDefinitionParams struct {
 	TextDocumentPositionParams
@@ -1197,7 +1197,7 @@ type ImplementationRegistrationOptions struct {
 const MethodTextDocumentImplementation = Method("textDocument/implementation")
 
 // Returns: Location | []Location | []LocationLink | nil
-type TextDocumentImplementationFunc func(context *glsp.Context, params *ImplementationParams) (interface{}, error)
+type TextDocumentImplementationFunc func(context *glsp.Context, params *ImplementationParams) (any, error)
 
 type ImplementationParams struct {
 	TextDocumentPositionParams
@@ -1384,7 +1384,7 @@ type DocumentSymbolRegistrationOptions struct {
 const MethodTextDocumentDocumentSymbol = Method("textDocument/documentSymbol")
 
 // Returns: []DocumentSymbol | []SymbolInformation | nil
-type TextDocumentDocumentSymbolFunc func(context *glsp.Context, params *DocumentSymbolParams) (interface{}, error)
+type TextDocumentDocumentSymbolFunc func(context *glsp.Context, params *DocumentSymbolParams) (any, error)
 
 type DocumentSymbolParams struct {
 	WorkDoneProgressParams
@@ -1659,7 +1659,7 @@ type CodeActionRegistrationOptions struct {
 const MethodTextDocumentCodeAction = Method("textDocument/codeAction")
 
 // Returns: Command | []CodeAction | nil
-type TextDocumentCodeActionFunc func(context *glsp.Context, params *CodeActionParams) (interface{}, error)
+type TextDocumentCodeActionFunc func(context *glsp.Context, params *CodeActionParams) (any, error)
 
 /**
  * Params for the CodeActionRequest
@@ -1875,7 +1875,7 @@ type CodeAction struct {
 	 *
 	 * @since 3.16.0
 	 */
-	Data interface{} `json:"data,omitempty"`
+	Data any `json:"data,omitempty"`
 }
 
 // https://microsoft.github.io/language-server-protocol/specifications/specification-3-16#codeAction_resolve
@@ -1945,7 +1945,7 @@ type CodeLens struct {
 	 * A data entry field that is preserved on a code lens item between
 	 * a code lens and a code lens resolve request.
 	 */
-	Data interface{} `json:"data,omitempty"`
+	Data any `json:"data,omitempty"`
 }
 
 // https://microsoft.github.io/language-server-protocol/specifications/specification-3-16#codeLens_resolve
@@ -2046,7 +2046,7 @@ type DocumentLink struct {
 	 * A data entry field that is preserved on a document link between a
 	 * DocumentLinkRequest and a DocumentLinkResolveRequest.
 	 */
-	Data interface{} `json:"data,omitempty"`
+	Data any `json:"data,omitempty"`
 }
 
 // https://microsoft.github.io/language-server-protocol/specifications/specification-3-16#documentLink_resolve
@@ -2210,7 +2210,7 @@ type DocumentFormattingParams struct {
 	Options FormattingOptions `json:"options"`
 }
 
-type FormattingOptions map[string]interface{} // bool | Integer | string
+type FormattingOptions map[string]any // bool | Integer | string
 
 /**
  * Value-object describing what options formatting should use.
@@ -2672,7 +2672,7 @@ type CallHierarchyItem struct {
 	 * A data entry field that is preserved between a call hierarchy prepare and
 	 * incoming calls or outgoing calls requests.
 	 */
-	Data interface{} `json:"data,omitempty"`
+	Data any `json:"data,omitempty"`
 }
 
 // https://microsoft.github.io/language-server-protocol/specifications/specification-3-16#callHierarchy_incomingCalls
@@ -2821,13 +2821,13 @@ type SemanticTokensClientCapabilities struct {
 		 * The client will send the `textDocument/semanticTokens/range` request
 		 * if the server provides a corresponding handler.
 		 */
-		Range interface{} `json:"Range,omitempty"` // nil | bool | struct{}
+		Range any `json:"Range,omitempty"` // nil | bool | struct{}
 
 		/**
 		 * The client will send the `textDocument/semanticTokens/full` request
 		 * if the server provides a corresponding handler.
 		 */
-		Full interface{} `json:"full,omitempty"` // nil | bool | SemanticDelta
+		Full any `json:"full,omitempty"` // nil | bool | SemanticDelta
 	} `json:"requests"`
 
 	/**
@@ -2925,12 +2925,12 @@ type SemanticTokensOptions struct {
 	 * Server supports providing semantic tokens for a specific range
 	 * of a document.
 	 */
-	Range interface{} `json:"range,omitempty"` // nil | bool | struct{}
+	Range any `json:"range,omitempty"` // nil | bool | struct{}
 
 	/**
 	 * Server supports providing semantic tokens for a full document.
 	 */
-	Full interface{} `json:"full,omitempty"` // nil | bool | SemanticDelta
+	Full any `json:"full,omitempty"` // nil | bool | SemanticDelta
 }
 
 // json.Unmarshaler interface
@@ -3020,7 +3020,7 @@ type SemanticTokensPartialResult struct {
 const MethodTextDocumentSemanticTokensFullDelta = Method("textDocument/semanticTokens/full/delta")
 
 // Returns: SemanticTokens | SemanticTokensDelta | SemanticTokensDeltaPartialResult | nil
-type TextDocumentSemanticTokensFullDeltaFunc func(context *glsp.Context, params *SemanticTokensDeltaParams) (interface{}, error)
+type TextDocumentSemanticTokensFullDeltaFunc func(context *glsp.Context, params *SemanticTokensDeltaParams) (any, error)
 
 type SemanticTokensDeltaParams struct {
 	WorkDoneProgressParams
@@ -3072,7 +3072,7 @@ type SemanticTokensDeltaPartialResult struct {
 const MethodTextDocumentSemanticTokensRange = Method("textDocument/semanticTokens/range")
 
 // Returns: SemanticTokens | SemanticTokensPartialResult | nil
-type TextDocumentSemanticTokensRangeFunc func(context *glsp.Context, params *SemanticTokensRangeParams) (interface{}, error)
+type TextDocumentSemanticTokensRangeFunc func(context *glsp.Context, params *SemanticTokensRangeParams) (any, error)
 
 type SemanticTokensRangeParams struct {
 	WorkDoneProgressParams

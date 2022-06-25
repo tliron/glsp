@@ -4,7 +4,6 @@ GLSP
 ====
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
-[![Latest Release](https://img.shields.io/github/release/tliron/glsp.svg)](https://github.com/tliron/glsp/releases/latest)
 [![Go Report Card](https://goreportcard.com/badge/github.com/tliron/glsp)](https://goreportcard.com/report/github.com/tliron/glsp)
 
 [Language Server Protocol](https://microsoft.github.io/language-server-protocol/) SDK for Go.
@@ -28,8 +27,9 @@ References
 
 * [go-lsp](https://github.com/sourcegraph/go-lsp) is another implementation with reduced coverage of the protocol
 
+
 Minimal Example
---
+---------------
 
 ```go
 package main
@@ -65,7 +65,7 @@ func main() {
 	server.RunStdio()
 }
 
-func initialize(context *glsp.Context, params *protocol.InitializeParams) (interface{}, error) {
+func initialize(context *glsp.Context, params *protocol.InitializeParams) (any, error) {
 	capabilities := handler.CreateServerCapabilities()
 
 	return protocol.InitializeResult{

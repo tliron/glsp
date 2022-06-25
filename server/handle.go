@@ -14,15 +14,15 @@ func (self *Server) newHandler() jsonrpc2.Handler {
 	return jsonrpc2.HandlerWithError(self.handle)
 }
 
-func (self *Server) handle(context contextpkg.Context, connection *jsonrpc2.Conn, request *jsonrpc2.Request) (interface{}, error) {
+func (self *Server) handle(context contextpkg.Context, connection *jsonrpc2.Conn, request *jsonrpc2.Request) (any, error) {
 	glspContext := glsp.Context{
 		Method: request.Method,
-		Notify: func(method string, params interface{}) {
+		Notify: func(method string, params any) {
 			if err := connection.Notify(context, method, params); err != nil {
 				self.Log.Errorf("%s", err.Error())
 			}
 		},
-		Call: func(method string, params interface{}, result interface{}) {
+		Call: func(method string, params any, result any) {
 			if err := connection.Call(context, method, params, result); err != nil {
 				self.Log.Errorf("%s", err.Error())
 			}

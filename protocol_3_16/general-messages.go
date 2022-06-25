@@ -11,7 +11,7 @@ import (
 const MethodInitialize = Method("initialize")
 
 // Returns: InitializeResult | InitializeError
-type InitializeFunc func(context *glsp.Context, params *InitializeParams) (interface{}, error)
+type InitializeFunc func(context *glsp.Context, params *InitializeParams) (any, error)
 
 type InitializeParams struct {
 	WorkDoneProgressParams
@@ -73,7 +73,7 @@ type InitializeParams struct {
 	/**
 	 * User provided initialization options.
 	 */
-	InitializationOptions interface{} `json:"initializationOptions,omitempty"`
+	InitializationOptions any `json:"initializationOptions,omitempty"`
 
 	/**
 	 * The capabilities provided by the client (editor or tool)
@@ -420,7 +420,7 @@ type ClientCapabilities struct {
 	/**
 	 * Experimental client capabilities.
 	 */
-	Experimental interface{} `json:"experimental,omitempty"`
+	Experimental any `json:"experimental,omitempty"`
 }
 
 func (self *ClientCapabilities) SupportsSymbolKind(kind SymbolKind) bool {
@@ -499,7 +499,7 @@ type ServerCapabilities struct {
 	 * TextDocumentSyncKind number. If omitted it defaults to
 	 * `TextDocumentSyncKind.None`.
 	 */
-	TextDocumentSync interface{} `json:"textDocumentSync,omitempty"` // nil | TextDocumentSyncOptions | TextDocumentSyncKind
+	TextDocumentSync any `json:"textDocumentSync,omitempty"` // nil | TextDocumentSyncOptions | TextDocumentSyncKind
 
 	/**
 	 * The server provides completion support.
@@ -509,7 +509,7 @@ type ServerCapabilities struct {
 	/**
 	 * The server provides hover support.
 	 */
-	HoverProvider interface{} `json:"hoverProvider,omitempty"` // nil | bool | HoverOptions
+	HoverProvider any `json:"hoverProvider,omitempty"` // nil | bool | HoverOptions
 
 	/**
 	 * The server provides signature help support.
@@ -521,48 +521,48 @@ type ServerCapabilities struct {
 	 *
 	 * @since 3.14.0
 	 */
-	DeclarationProvider interface{} `json:"declarationProvider,omitempty"` // nil | bool | DeclarationOptions | DeclarationRegistrationOptions
+	DeclarationProvider any `json:"declarationProvider,omitempty"` // nil | bool | DeclarationOptions | DeclarationRegistrationOptions
 
 	/**
 	 * The server provides goto definition support.
 	 */
-	DefinitionProvider interface{} `json:"definitionProvider,omitempty"` // nil | bool | DefinitionOptions
+	DefinitionProvider any `json:"definitionProvider,omitempty"` // nil | bool | DefinitionOptions
 
 	/**
 	 * The server provides goto type definition support.
 	 *
 	 * @since 3.6.0
 	 */
-	TypeDefinitionProvider interface{} `json:"typeDefinitionProvider,omitempty"` // nil | bool | TypeDefinitionOption | TypeDefinitionRegistrationOptions
+	TypeDefinitionProvider any `json:"typeDefinitionProvider,omitempty"` // nil | bool | TypeDefinitionOption | TypeDefinitionRegistrationOptions
 
 	/**
 	 * The server provides goto implementation support.
 	 *
 	 * @since 3.6.0
 	 */
-	ImplementationProvider interface{} `json:"implementationProvider,omitempty"` // nil | bool | ImplementationOptions | ImplementationRegistrationOptions
+	ImplementationProvider any `json:"implementationProvider,omitempty"` // nil | bool | ImplementationOptions | ImplementationRegistrationOptions
 
 	/**
 	 * The server provides find references support.
 	 */
-	ReferencesProvider interface{} `json:"referencesProvider,omitempty"` // nil | bool | ReferenceOptions
+	ReferencesProvider any `json:"referencesProvider,omitempty"` // nil | bool | ReferenceOptions
 
 	/**
 	 * The server provides document highlight support.
 	 */
-	DocumentHighlightProvider interface{} `json:"documentHighlightProvider,omitempty"` // nil | bool | DocumentHighlightOptions
+	DocumentHighlightProvider any `json:"documentHighlightProvider,omitempty"` // nil | bool | DocumentHighlightOptions
 
 	/**
 	 * The server provides document symbol support.
 	 */
-	DocumentSymbolProvider interface{} `json:"documentSymbolProvider,omitempty"` // nil | bool | DocumentSymbolOptions
+	DocumentSymbolProvider any `json:"documentSymbolProvider,omitempty"` // nil | bool | DocumentSymbolOptions
 
 	/**
 	 * The server provides code actions. The `CodeActionOptions` return type is
 	 * only valid if the client signals code action literal support via the
 	 * property `textDocument.codeAction.codeActionLiteralSupport`.
 	 */
-	CodeActionProvider interface{} `json:"codeActionProvider,omitempty"` // nil | bool | CodeActionOptions
+	CodeActionProvider any `json:"codeActionProvider,omitempty"` // nil | bool | CodeActionOptions
 
 	/**
 	 * The server provides code lens.
@@ -579,17 +579,17 @@ type ServerCapabilities struct {
 	 *
 	 * @since 3.6.0
 	 */
-	ColorProvider interface{} `json:"colorProvider,omitempty"` // nil | bool | DocumentColorOptions | DocumentColorRegistrationOptions
+	ColorProvider any `json:"colorProvider,omitempty"` // nil | bool | DocumentColorOptions | DocumentColorRegistrationOptions
 
 	/**
 	 * The server provides document formatting.
 	 */
-	DocumentFormattingProvider interface{} `json:"documentFormattingProvider,omitempty"` // nil | bool | DocumentFormattingOptions
+	DocumentFormattingProvider any `json:"documentFormattingProvider,omitempty"` // nil | bool | DocumentFormattingOptions
 
 	/**
 	 * The server provides document range formatting.
 	 */
-	DocumentRangeFormattingProvider interface{} `json:"documentRangeFormattingProvider,omitempty"` // nil | bool | DocumentRangeFormattingOptions
+	DocumentRangeFormattingProvider any `json:"documentRangeFormattingProvider,omitempty"` // nil | bool | DocumentRangeFormattingOptions
 
 	/**
 	 * The server provides document formatting on typing.
@@ -601,14 +601,14 @@ type ServerCapabilities struct {
 	 * specified if the client states that it supports
 	 * `prepareSupport` in its initial `initialize` request.
 	 */
-	RenameProvider interface{} `json:"renameProvider,omitempty"` // nil | bool | RenameOptions
+	RenameProvider any `json:"renameProvider,omitempty"` // nil | bool | RenameOptions
 
 	/**
 	 * The server provides folding provider support.
 	 *
 	 * @since 3.10.0
 	 */
-	FoldingRangeProvider interface{} `json:"foldingRangeProvider,omitempty"` // nil | bool | FoldingRangeOptions | FoldingRangeRegistrationOptions
+	FoldingRangeProvider any `json:"foldingRangeProvider,omitempty"` // nil | bool | FoldingRangeOptions | FoldingRangeRegistrationOptions
 
 	/**
 	 * The server provides execute command support.
@@ -620,40 +620,40 @@ type ServerCapabilities struct {
 	 *
 	 * @since 3.15.0
 	 */
-	SelectionRangeProvider interface{} `json:"selectionRangeProvider,omitempty"` // nil | bool | SelectionRangeOptions | SelectionRangeRegistrationOptions
+	SelectionRangeProvider any `json:"selectionRangeProvider,omitempty"` // nil | bool | SelectionRangeOptions | SelectionRangeRegistrationOptions
 
 	/**
 	 * The server provides linked editing range support.
 	 *
 	 * @since 3.16.0
 	 */
-	LinkedEditingRangeProvider interface{} `json:"linkedEditingRangeProvider,omitempty"` // nil | bool | LinkedEditingRangeOptions | LinkedEditingRangeRegistrationOptions
+	LinkedEditingRangeProvider any `json:"linkedEditingRangeProvider,omitempty"` // nil | bool | LinkedEditingRangeOptions | LinkedEditingRangeRegistrationOptions
 
 	/**
 	 * The server provides call hierarchy support.
 	 *
 	 * @since 3.16.0
 	 */
-	CallHierarchyProvider interface{} `json:"callHierarchyProvider,omitempty"` // nil | bool | CallHierarchyOptions | CallHierarchyRegistrationOptions
+	CallHierarchyProvider any `json:"callHierarchyProvider,omitempty"` // nil | bool | CallHierarchyOptions | CallHierarchyRegistrationOptions
 
 	/**
 	 * The server provides semantic tokens support.
 	 *
 	 * @since 3.16.0
 	 */
-	SemanticTokensProvider interface{} `json:"semanticTokensProvider,omitempty"` // nil | SemanticTokensOptions | SemanticTokensRegistrationOptions
+	SemanticTokensProvider any `json:"semanticTokensProvider,omitempty"` // nil | SemanticTokensOptions | SemanticTokensRegistrationOptions
 
 	/**
 	 * Whether server provides moniker support.
 	 *
 	 * @since 3.16.0
 	 */
-	MonikerProvider interface{} `json:"monikerProvider,omitempty"` // nil | bool | MonikerOptions | MonikerRegistrationOptions
+	MonikerProvider any `json:"monikerProvider,omitempty"` // nil | bool | MonikerOptions | MonikerRegistrationOptions
 
 	/**
 	 * The server provides workspace symbol support.
 	 */
-	WorkspaceSymbolProvider interface{} `json:"workspaceSymbolProvider,omitempty"` // nil | bool | WorkspaceSymbolOptions
+	WorkspaceSymbolProvider any `json:"workspaceSymbolProvider,omitempty"` // nil | bool | WorkspaceSymbolOptions
 
 	/**
 	 * Workspace specific server capabilities
@@ -663,7 +663,7 @@ type ServerCapabilities struct {
 	/**
 	 * Experimental server capabilities.
 	 */
-	Experimental interface{} `json:"experimental,omitempty"`
+	Experimental any `json:"experimental,omitempty"`
 }
 
 type ServerCapabilitiesWorkspace struct {
@@ -749,7 +749,7 @@ func (self *ServerCapabilities) UnmarshalJSON(data []byte) error {
 		MonikerProvider                  json.RawMessage                  `json:"monikerProvider,omitempty"`            // nil | bool | MonikerOptions | MonikerRegistrationOptions
 		WorkspaceSymbolProvider          json.RawMessage                  `json:"workspaceSymbolProvider,omitempty"`    // nil | bool | WorkspaceSymbolOptions
 		Workspace                        *ServerCapabilitiesWorkspace     `json:"workspace,omitempty"`
-		Experimental                     *interface{}                     `json:"experimental,omitempty"`
+		Experimental                     *any                             `json:"experimental,omitempty"`
 	}
 
 	if err := json.Unmarshal(data, &value); err == nil {

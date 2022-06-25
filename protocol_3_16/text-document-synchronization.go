@@ -89,7 +89,7 @@ type DidChangeTextDocumentParams struct {
 	 * - apply the `TextDocumentContentChangeEvent`s in a single notification
 	 *   in the order you receive them.
 	 */
-	ContentChanges []interface{} `json:"contentChanges"` // TextDocumentContentChangeEvent or TextDocumentContentChangeEventWhole
+	ContentChanges []any `json:"contentChanges"` // TextDocumentContentChangeEvent or TextDocumentContentChangeEventWhole
 }
 
 // json.Unmarshaler interface
@@ -296,7 +296,7 @@ type TextDocumentSyncOptions struct {
 	 * If present save notifications are sent to the server. If omitted the
 	 * notification should not be sent.
 	 */
-	Save interface{} `json:"save,omitempty"` // nil | bool | SaveOptions
+	Save any `json:"save,omitempty"` // nil | bool | SaveOptions
 }
 
 // json.Unmarshaler interface

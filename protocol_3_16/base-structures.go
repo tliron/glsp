@@ -239,7 +239,7 @@ type Diagnostic struct {
 	 *
 	 * @since 3.16.0
 	 */
-	Data interface{} `json:"data,omitempty"`
+	Data any `json:"data,omitempty"`
 }
 
 type DiagnosticSeverity Integer
@@ -336,7 +336,7 @@ type Command struct {
 	 * Arguments that the command handler should be
 	 * invoked with.
 	 */
-	Arguments []interface{} `json:"arguments,omitempty"`
+	Arguments []any `json:"arguments,omitempty"`
 }
 
 // https://microsoft.github.io/language-server-protocol/specifications/specification-3-16#textEdit
@@ -416,7 +416,7 @@ type TextDocumentEdit struct {
 	 * @since 3.16.0 - support for AnnotatedTextEdit. This is guarded by the
 	 * client capability `workspace.workspaceEdit.changeAnnotationSupport`
 	 */
-	Edits []interface{} `json:"edits"` // TextEdit | AnnotatedTextEdit
+	Edits []any `json:"edits"` // TextEdit | AnnotatedTextEdit
 }
 
 // json.Unmarshaler interface
@@ -605,7 +605,7 @@ type WorkspaceEdit struct {
 	 * `workspace.workspaceEdit.resourceOperations` then only plain `TextEdit`s
 	 * using the `changes` property are supported.
 	 */
-	DocumentChanges []interface{} `json:"documentChanges,omitempty"` // TextDocumentEdit | CreateFile | RenameFile | DeleteFile
+	DocumentChanges []any `json:"documentChanges,omitempty"` // TextDocumentEdit | CreateFile | RenameFile | DeleteFile
 
 	/**
 	 * A map of change annotations that can be referenced in

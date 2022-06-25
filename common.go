@@ -4,8 +4,8 @@ import (
 	"encoding/json"
 )
 
-type NotifyFunc func(method string, params interface{})
-type CallFunc func(method string, params interface{}, result interface{})
+type NotifyFunc func(method string, params any)
+type CallFunc func(method string, params any, result any)
 
 type Context struct {
 	Method string
@@ -15,5 +15,5 @@ type Context struct {
 }
 
 type Handler interface {
-	Handle(context *Context) (r interface{}, validMethod bool, validParams bool, err error)
+	Handle(context *Context) (r any, validMethod bool, validParams bool, err error)
 }
