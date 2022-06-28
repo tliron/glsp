@@ -2074,7 +2074,7 @@ type DocumentColorRegistrationOptions struct {
 	DocumentColorOptions
 }
 
-const MethodTextDocumentColor = Method("textDocument/color")
+const MethodTextDocumentColor = Method("textDocument/documentColor")
 
 type TextDocumentColorFunc func(context *glsp.Context, params *DocumentColorParams) ([]ColorInformation, error)
 
