@@ -36,6 +36,7 @@ type Handler struct {
 	WorkspaceDidRenameFiles            WorkspaceDidRenameFilesFunc
 	WorkspaceWillDeleteFiles           WorkspaceWillDeleteFilesFunc
 	WorkspaceDidDeleteFiles            WorkspaceDidDeleteFilesFunc
+	WorkspaceSemanticTokensRefresh     WorkspaceSemanticTokensRefreshFunc
 
 	// Text Document Synchronization
 	TextDocumentDidOpen           TextDocumentDidOpenFunc
@@ -78,7 +79,6 @@ type Handler struct {
 	TextDocumentSemanticTokensFull      TextDocumentSemanticTokensFullFunc
 	TextDocumentSemanticTokensFullDelta TextDocumentSemanticTokensFullDeltaFunc
 	TextDocumentSemanticTokensRange     TextDocumentSemanticTokensRangeFunc
-	TextDocumentSemanticTokensRefresh   TextDocumentSemanticTokensRefreshFunc
 	TextDocumentLinkedEditingRange      TextDocumentLinkedEditingRangeFunc
 	TextDocumentMoniker                 TextDocumentMonikerFunc
 
@@ -683,11 +683,11 @@ func (self *Handler) Handle(context *glsp.Context) (r any, validMethod bool, val
 			}
 		}
 
-	case MethodTextDocumentSemanticTokensRefresh:
-		if self.TextDocumentSemanticTokensRefresh != nil {
+	case MethodWorkspaceSemanticTokensRefresh:
+		if self.WorkspaceSemanticTokensRefresh != nil {
 			validMethod = true
 			validParams = true
-			err = self.TextDocumentSemanticTokensRefresh(context)
+			err = self.WorkspaceSemanticTokensRefresh(context)
 		}
 
 	case MethodTextDocumentLinkedEditingRange:
