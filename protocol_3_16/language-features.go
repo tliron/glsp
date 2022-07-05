@@ -3089,23 +3089,6 @@ type SemanticTokensRangeParams struct {
 	Range Range `json:"range"`
 }
 
-const MethodTextDocumentSemanticTokensRefresh = Method("textDocument/semanticTokens/refresh")
-
-type TextDocumentSemanticTokensRefreshFunc func(context *glsp.Context) error
-
-type SemanticTokensWorkspaceClientCapabilities struct {
-	/**
-	 * Whether the client implementation supports a refresh request sent from
-	 * the server to the client.
-	 *
-	 * Note that this event is global and will force the client to refresh all
-	 * semantic tokens currently shown. It should be used with absolute care
-	 * and is useful for situation where a server for example detect a project
-	 * wide change that requires such a calculation.
-	 */
-	RefreshSupport *bool `json:"refreshSupport,omitempty"`
-}
-
 // https://microsoft.github.io/language-server-protocol/specifications/specification-3-16#textDocument_linkedEditingRange
 
 type LinkedEditingRangeClientCapabilities struct {
