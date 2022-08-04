@@ -11,24 +11,29 @@ import (
 
 // See: https://github.com/sourcegraph/go-langserver/blob/master/main.go#L179
 
-func (self *Server) serveStream(stream io.ReadWriteCloser) {
+func (self *Server) getStreamConn(stream io.ReadWriteCloser) *jsonrpc2.Conn {
 	handler := self.newHandler()
 	connectionOptions := self.newConnectionOptions()
-	<-jsonrpc2.NewConn(self.Context, jsonrpc2.NewBufferedStream(stream, jsonrpc2.VSCodeObjectCodec{}), handler, connectionOptions...).DisconnectNotify()
+	return jsonrpc2.NewConn(self.Context, jsonrpc2.NewBufferedStream(stream, jsonrpc2.VSCodeObjectCodec{}), handler, connectionOptions...)
+}
+
+func (self *Server) serveStream(stream io.ReadWriteCloser) {
+	<-self.getStreamConn(stream).DisconnectNotify()
+}
+
+func (self *Server) getWebSocketConn(socket *websocket.Conn) *jsonrpc2.Conn {
+	handler := self.newHandler()
+	connectionOptions := self.newConnectionOptions()
+	return jsonrpc2.NewConn(self.Context, wsjsonrpc2.NewObjectStream(socket), handler, connectionOptions...)
 }
 
 func (self *Server) serveWebSocket(socket *websocket.Conn) {
-	handler := self.newHandler()
-	connectionOptions := self.newConnectionOptions()
-	<-jsonrpc2.NewConn(self.Context, wsjsonrpc2.NewObjectStream(socket), handler, connectionOptions...).DisconnectNotify()
+	<-self.getWebSocketConn(socket).DisconnectNotify()
 }
 
 func (self *Server) serveStreamAsync(stream io.ReadWriteCloser, id int) {
-	handler := self.newHandler()
-	connectionOptions := self.newConnectionOptions()
-	connection := jsonrpc2.NewConn(self.Context, jsonrpc2.NewBufferedStream(stream, jsonrpc2.VSCodeObjectCodec{}), handler, connectionOptions...)
 	go func() {
-		<-connection.DisconnectNotify()
+		<-self.getStreamConn(stream).DisconnectNotify()
 		self.Log.Infof("connection #%d closed", id)
 	}()
 }

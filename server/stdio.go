@@ -2,6 +2,8 @@ package server
 
 import (
 	"os"
+
+	"github.com/sourcegraph/jsonrpc2"
 )
 
 func (self *Server) RunStdio() error {
@@ -9,6 +11,10 @@ func (self *Server) RunStdio() error {
 	self.serveStream(stdrwc{})
 	self.Log.Info("stdin/stdout connection closed")
 	return nil
+}
+
+func (self *Server) GetStdio() *jsonrpc2.Conn {
+	return self.getStreamConn(stdrwc{})
 }
 
 type stdrwc struct{}
