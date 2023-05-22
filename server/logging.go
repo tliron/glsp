@@ -3,11 +3,11 @@ package server
 import (
 	"strings"
 
-	"github.com/tliron/kutil/logging"
+	"github.com/tliron/commonlog"
 )
 
 type Logger struct {
-	log logging.Logger
+	log commonlog.Logger
 }
 
 // jsonrpc2.Logger interface

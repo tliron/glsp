@@ -6,7 +6,7 @@ import (
 	"github.com/gorilla/websocket"
 	"github.com/sourcegraph/jsonrpc2"
 	wsjsonrpc2 "github.com/sourcegraph/jsonrpc2/websocket"
-	"github.com/tliron/kutil/logging"
+	"github.com/tliron/commonlog"
 )
 
 // See: https://github.com/sourcegraph/go-langserver/blob/master/main.go#L179
@@ -40,7 +40,7 @@ func (self *Server) serveStreamAsync(stream io.ReadWriteCloser, id int) {
 
 func (self *Server) newConnectionOptions() []jsonrpc2.ConnOpt {
 	if self.Debug {
-		logger := logging.GetLogger(self.LogBaseName + ".rpc")
+		logger := commonlog.GetLogger(self.LogBaseName + ".rpc")
 		return []jsonrpc2.ConnOpt{jsonrpc2.LogMessages(&Logger{logger})}
 	} else {
 		return nil
