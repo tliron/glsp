@@ -4,6 +4,7 @@ GLSP
 ====
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+[![Go Reference](https://pkg.go.dev/badge/github.com/tliron/glsp.svg)](https://pkg.go.dev/github.com/tliron/kutglspil)
 [![Go Report Card](https://goreportcard.com/badge/github.com/tliron/glsp)](https://goreportcard.com/report/github.com/tliron/glsp)
 
 [Language Server Protocol](https://microsoft.github.io/language-server-protocol/) SDK for Go.
@@ -38,10 +39,11 @@ import (
 	"github.com/tliron/glsp"
 	protocol "github.com/tliron/glsp/protocol_3_16"
 	"github.com/tliron/glsp/server"
-	"github.com/tliron/kutil/logging"
+	"github.com/tliron/commonlog"
 
-	// Must include a backend implementation. See kutil's logging/ for other options.
-	_ "github.com/tliron/kutil/logging/simple"
+	// Must include a backend implementation
+	// See CommonLog for other options: https://github.com/tliron/commonlog
+	_ "github.com/tliron/commonlog/simple"
 )
 
 const lsName = "my language"
@@ -51,7 +53,7 @@ var handler protocol.Handler
 
 func main() {
 	// This increases logging verbosity (optional)
-	logging.Configure(1, nil)
+	commonlog.Configure(1, nil)
 
 	handler = protocol.Handler{
 		Initialize:  initialize,
