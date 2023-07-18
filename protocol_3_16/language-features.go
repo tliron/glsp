@@ -715,7 +715,7 @@ func (self MarkedString) UnmarshalJSON(data []byte) error {
 		self.value = value
 		return nil
 	} else {
-		var value MarkedString
+		var value MarkedStringStruct
 		if err := json.Unmarshal(data, &value); err == nil {
 			self.value = value
 			return nil
