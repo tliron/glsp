@@ -3081,7 +3081,7 @@ type SemanticTokensRangeParams struct {
 	/**
 	 * The text document.
 	 */
-	TextDocument TextDocumentIdentifier `json:"tokenTypes"`
+	TextDocument TextDocumentIdentifier `json:"textDocument"`
 
 	/**
 	 * The range the semantic tokens are requested for.
