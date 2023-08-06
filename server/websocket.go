@@ -26,7 +26,7 @@ func (self *Server) RunWebSocket(address string) error {
 		connectionId := connectionCount
 
 		self.Log.Infof("received incoming WebSocket connection #%d", connectionId)
-		self.serveWebSocket(connection)
+		self.ServeWebSocket(connection)
 		self.Log.Infof("WebSocket connection #%d closed", connectionId)
 	})
 

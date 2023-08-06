@@ -27,7 +27,7 @@ func (self *Server) getWebSocketConn(socket *websocket.Conn) *jsonrpc2.Conn {
 	return jsonrpc2.NewConn(self.Context, wsjsonrpc2.NewObjectStream(socket), handler, connectionOptions...)
 }
 
-func (self *Server) serveWebSocket(socket *websocket.Conn) {
+func (self *Server) ServeWebSocket(socket *websocket.Conn) {
 	<-self.getWebSocketConn(socket).DisconnectNotify()
 }
 
