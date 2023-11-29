@@ -703,7 +703,7 @@ type MarkedStringStruct struct {
 	Value    string `json:"value"`
 }
 
-// json.Marshaler interface
+// ([json.Marshaler] interface)
 func (self MarkedString) MarshalJSON() ([]byte, error) {
 	return json.Marshal(self.value)
 }

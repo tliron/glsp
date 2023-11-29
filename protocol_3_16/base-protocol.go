@@ -37,7 +37,7 @@ type IntegerOrString struct {
 	Value any // Integer | string
 }
 
-// json.Marshaler interface
+// ([json.Marshaler] interface)
 func (self IntegerOrString) MarshalJSON() ([]byte, error) {
 	return json.Marshal(self.Value)
 }
@@ -63,7 +63,7 @@ type BoolOrString struct {
 	Value any // bool | string
 }
 
-// json.Marshaler interface
+// ([json.Marshaler] interface)
 func (self BoolOrString) MarshalJSON() ([]byte, error) {
 	return json.Marshal(self.Value)
 }
@@ -85,7 +85,7 @@ func (self BoolOrString) UnmarshalJSON(data []byte) error {
 	}
 }
 
-// fmt.Stringer interface
+// ([fmt.Stringer] interface)
 func (self BoolOrString) String() string {
 	if value, ok := self.Value.(bool); ok {
 		return strconv.FormatBool(value)
