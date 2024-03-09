@@ -2416,7 +2416,7 @@ type RenameParams struct {
 const MethodTextDocumentPrepareRename = Method("textDocument/prepareRename")
 
 // Returns: Range | RangeWithPlaceholder | DefaultBehavior | nil
-type TextDocumentPrepareRenameFunc func(context *glsp.Context, params *PrepareRenameParams) (*WorkspaceEdit, error)
+type TextDocumentPrepareRenameFunc func(context *glsp.Context, params *PrepareRenameParams) (any, error)
 
 type PrepareRenameParams struct {
 	TextDocumentPositionParams
