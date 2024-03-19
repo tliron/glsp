@@ -92,7 +92,7 @@ type DidChangeTextDocumentParams struct {
 	ContentChanges []any `json:"contentChanges"` // TextDocumentContentChangeEvent or TextDocumentContentChangeEventWhole
 }
 
-// json.Unmarshaler interface
+// ([json.Unmarshaler] interface)
 func (self *DidChangeTextDocumentParams) UnmarshalJSON(data []byte) error {
 	var value struct {
 		TextDocument   VersionedTextDocumentIdentifier `json:"textDocument"`
@@ -299,7 +299,7 @@ type TextDocumentSyncOptions struct {
 	Save any `json:"save,omitempty"` // nil | bool | SaveOptions
 }
 
-// json.Unmarshaler interface
+// ([json.Unmarshaler] interface)
 func (self *TextDocumentSyncOptions) UnmarshalJSON(data []byte) error {
 	var value struct {
 		OpenClose         *bool                 `json:"openClose"`

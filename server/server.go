@@ -1,12 +1,13 @@
 package server
 
 import (
-	contextpkg "context"
 	"time"
 
 	"github.com/tliron/commonlog"
 	"github.com/tliron/glsp"
 )
+
+var DefaultTimeout = time.Minute
 
 //
 // Server
@@ -17,20 +18,24 @@ type Server struct {
 	LogBaseName string
 	Debug       bool
 
-	Log          commonlog.Logger
-	Context      contextpkg.Context
-	ReadTimeout  time.Duration
-	WriteTimeout time.Duration
+	Log              commonlog.Logger
+	Timeout          time.Duration
+	ReadTimeout      time.Duration
+	WriteTimeout     time.Duration
+	StreamTimeout    time.Duration
+	WebSocketTimeout time.Duration
 }
 
-func NewServer(handler glsp.Handler, logBaseName string, debug bool) *Server {
+func NewServer(handler glsp.Handler, logName string, debug bool) *Server {
 	return &Server{
-		Handler:      handler,
-		LogBaseName:  logBaseName,
-		Debug:        debug,
-		Log:          commonlog.GetLoggerf("%s.server", logBaseName),
-		Context:      contextpkg.Background(),
-		ReadTimeout:  75 * time.Second,
-		WriteTimeout: 60 * time.Second,
+		Handler:          handler,
+		LogBaseName:      logName,
+		Debug:            debug,
+		Log:              commonlog.GetLogger(logName),
+		Timeout:          DefaultTimeout,
+		ReadTimeout:      DefaultTimeout,
+		WriteTimeout:     DefaultTimeout,
+		StreamTimeout:    DefaultTimeout,
+		WebSocketTimeout: DefaultTimeout,
 	}
 }

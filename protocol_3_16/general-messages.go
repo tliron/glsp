@@ -718,7 +718,7 @@ type ServerCapabilitiesWorkspaceFileOperations struct {
 	WillDelete *FileOperationRegistrationOptions `json:"willDelete,omitempty"`
 }
 
-// json.Unmarshaler interface
+// ([json.Unmarshaler] interface)
 func (self *ServerCapabilities) UnmarshalJSON(data []byte) error {
 	var value struct {
 		TextDocumentSync                 json.RawMessage                  `json:"textDocumentSync,omitempty"` // nil | TextDocumentSyncOptions | TextDocumentSyncKind

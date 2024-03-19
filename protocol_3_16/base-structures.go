@@ -419,7 +419,7 @@ type TextDocumentEdit struct {
 	Edits []any `json:"edits"` // TextEdit | AnnotatedTextEdit
 }
 
-// json.Unmarshaler interface
+// ([json.Unmarshaler] interface)
 func (self *TextDocumentEdit) UnmarshalJSON(data []byte) error {
 	var value struct {
 		TextDocument OptionalVersionedTextDocumentIdentifier `json:"textDocument"`
@@ -620,7 +620,7 @@ type WorkspaceEdit struct {
 	ChangeAnnotations map[ChangeAnnotationIdentifier]ChangeAnnotation `json:"changeAnnotations,omitempty"`
 }
 
-// json.Unmarshaler interface
+// ([json.Unmarshaler] interface)
 func (self *WorkspaceEdit) UnmarshalJSON(data []byte) error {
 	var value struct {
 		Changes           map[DocumentUri][]TextEdit                      `json:"changes"`

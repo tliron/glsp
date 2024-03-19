@@ -19,14 +19,15 @@ func (self *Server) handle(context contextpkg.Context, connection *jsonrpc2.Conn
 		Method: request.Method,
 		Notify: func(method string, params any) {
 			if err := connection.Notify(context, method, params); err != nil {
-				self.Log.Errorf("%s", err.Error())
+				self.Log.Error(err.Error())
 			}
 		},
 		Call: func(method string, params any, result any) {
 			if err := connection.Call(context, method, params, result); err != nil {
-				self.Log.Errorf("%s", err.Error())
+				self.Log.Error(err.Error())
 			}
 		},
+		Context: context,
 	}
 
 	if request.Params != nil {
@@ -41,23 +42,23 @@ func (self *Server) handle(context contextpkg.Context, connection *jsonrpc2.Conn
 		return nil, err
 
 	default:
-		// Note: jsonrpc2 will not even call this function if reqest.Params is not valid JSON,
+		// Note: jsonrpc2 will not even call this function if reqest.Params is invalid JSON,
 		// so we don't need to handle jsonrpc2.CodeParseError here
-		r, validMethod, validParams, err := self.Handler.Handle(&glspContext)
+		result, validMethod, validParams, err := self.Handler.Handle(&glspContext)
 		if !validMethod {
 			return nil, &jsonrpc2.Error{
 				Code:    jsonrpc2.CodeMethodNotFound,
 				Message: fmt.Sprintf("method not supported: %s", request.Method),
 			}
 		} else if !validParams {
-			if err != nil {
+			if err == nil {
 				return nil, &jsonrpc2.Error{
-					Code:    jsonrpc2.CodeInvalidParams,
-					Message: err.Error(),
+					Code: jsonrpc2.CodeInvalidParams,
 				}
 			} else {
 				return nil, &jsonrpc2.Error{
-					Code: jsonrpc2.CodeInvalidParams,
+					Code:    jsonrpc2.CodeInvalidParams,
+					Message: err.Error(),
 				}
 			}
 		} else if err != nil {
@@ -66,7 +67,7 @@ func (self *Server) handle(context contextpkg.Context, connection *jsonrpc2.Conn
 				Message: err.Error(),
 			}
 		} else {
-			return r, nil
+			return result, nil
 		}
 	}
 }

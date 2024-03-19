@@ -42,7 +42,7 @@ func (self *IntegerOrString) MarshalJSON() ([]byte, error) {
 	return json.Marshal(self.Value)
 }
 
-// json.Unmarshaler interface
+// ([json.Unmarshaler] interface)
 func (self *IntegerOrString) UnmarshalJSON(data []byte) error {
 	var value Integer
 	if err := json.Unmarshal(data, &value); err == nil {
@@ -68,7 +68,7 @@ func (self BoolOrString) MarshalJSON() ([]byte, error) {
 	return json.Marshal(self.Value)
 }
 
-// json.Unmarshaler interface
+// ([json.Unmarshaler] interface)
 func (self BoolOrString) UnmarshalJSON(data []byte) error {
 	var value bool
 	if err := json.Unmarshal(data, &value); err == nil {

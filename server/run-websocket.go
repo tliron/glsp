@@ -2,32 +2,30 @@ package server
 
 import (
 	"net/http"
+	"sync/atomic"
 
 	"github.com/gorilla/websocket"
 	"github.com/pkg/errors"
+	"github.com/tliron/commonlog"
 )
 
 func (self *Server) RunWebSocket(address string) error {
 	mux := http.NewServeMux()
 	upgrader := websocket.Upgrader{CheckOrigin: func(request *http.Request) bool { return true }}
 
-	connectionCount := 0
+	var connectionCount uint64
 
 	mux.HandleFunc("/", func(writer http.ResponseWriter, request *http.Request) {
 		connection, err := upgrader.Upgrade(writer, request, nil)
 		if err != nil {
-			self.Log.Infof("error upgrading HTTP to WebSocket: %s", err.Error())
-			http.Error(writer, errors.Wrap(err, "could not upgrade to WebSocket").Error(), http.StatusBadRequest)
+			self.Log.Warningf("error upgrading HTTP to web socket: %s", err.Error())
+			http.Error(writer, errors.Wrap(err, "could not upgrade to web socket").Error(), http.StatusBadRequest)
 			return
 		}
-		defer connection.Close()
 
-		connectionCount++
-		connectionId := connectionCount
-
-		self.Log.Infof("received incoming WebSocket connection #%d", connectionId)
-		self.ServeWebSocket(connection)
-		self.Log.Infof("WebSocket connection #%d closed", connectionId)
+		log := commonlog.NewKeyValueLogger(self.Log, "id", atomic.AddUint64(&connectionCount, 1))
+		defer commonlog.CallAndLogError(connection.Close, "connection.Close", log)
+		self.ServeWebSocket(connection, log)
 	})
 
 	listener, err := self.newNetworkListener("tcp", address)
@@ -36,12 +34,12 @@ func (self *Server) RunWebSocket(address string) error {
 	}
 
 	server := http.Server{
-		Handler:      mux,
+		Handler:      http.TimeoutHandler(mux, self.Timeout, ""),
 		ReadTimeout:  self.ReadTimeout,
 		WriteTimeout: self.WriteTimeout,
 	}
 
-	self.Log.Infof("listening for WebSocket connections on %s", address)
+	self.Log.Notice("listening for web socket connections", "address", address)
 	err = server.Serve(*listener)
 	return errors.Wrap(err, "WebSocket")
 }

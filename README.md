@@ -48,8 +48,10 @@ import (
 
 const lsName = "my language"
 
-var version string = "0.0.1"
-var handler protocol.Handler
+var (
+	version string = "0.0.1"
+	handler protocol.Handler
+)
 
 func main() {
 	// This increases logging verbosity (optional)

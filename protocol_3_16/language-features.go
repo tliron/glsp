@@ -483,7 +483,7 @@ type CompletionItem struct {
 	Data any `json:"data,omitempty"`
 }
 
-// json.Unmarshaler interface
+// ([json.Unmarshaler] interface)
 func (self *CompletionItem) UnmarshalJSON(data []byte) error {
 	var value struct {
 		Label               string              `json:"label"`
@@ -645,7 +645,7 @@ type Hover struct {
 	Range *Range `json:"range,omitempty"`
 }
 
-// json.Unmarshaler interface
+// ([json.Unmarshaler] interface)
 func (self *Hover) UnmarshalJSON(data []byte) error {
 	var value struct {
 		Contents json.RawMessage `json:"contents"` // MarkupContent | MarkedString | []MarkedString
@@ -708,7 +708,7 @@ func (self MarkedString) MarshalJSON() ([]byte, error) {
 	return json.Marshal(self.value)
 }
 
-// json.Unmarshaler interface
+// ([json.Unmarshaler] interface)
 func (self MarkedString) UnmarshalJSON(data []byte) error {
 	var value string
 	if err := json.Unmarshal(data, &value); err == nil {
@@ -954,7 +954,7 @@ type SignatureInformation struct {
 	ActiveParameter *UInteger `json:"activeParameter,omitempty"`
 }
 
-// json.Unmarshaler interface
+// ([json.Unmarshaler] interface)
 func (self *SignatureInformation) UnmarshalJSON(data []byte) error {
 	var value struct {
 		Label           string                 `json:"label"`
@@ -1014,7 +1014,7 @@ type ParameterInformation struct {
 	Documentation any `json:"documentation,omitempty"` // nil | string | MarkupContent
 }
 
-// json.Unmarshaler interface
+// ([json.Unmarshaler] interface)
 func (self *ParameterInformation) UnmarshalJSON(data []byte) error {
 	var value struct {
 		Label         json.RawMessage `json:"label"`         // string | [2]UInteger
@@ -2856,7 +2856,7 @@ type SemanticTokensClientCapabilities struct {
 	MultilineTokenSupport *bool `json:"multilineTokenSupport,omitempty"`
 }
 
-// json.Unmarshaler interface
+// ([json.Unmarshaler] interface)
 func (self *SemanticTokensClientCapabilities) UnmarshalJSON(data []byte) error {
 	var value struct {
 		DynamicRegistration *bool `json:"dynamicRegistration,omitempty"`
@@ -2933,7 +2933,7 @@ type SemanticTokensOptions struct {
 	Full any `json:"full,omitempty"` // nil | bool | SemanticDelta
 }
 
-// json.Unmarshaler interface
+// ([json.Unmarshaler] interface)
 func (self *SemanticTokensOptions) UnmarshalJSON(data []byte) error {
 	var value struct {
 		Legend SemanticTokensLegend `json:"legend"`
