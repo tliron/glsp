@@ -38,12 +38,12 @@ type IntegerOrString struct {
 }
 
 // ([json.Marshaler] interface)
-func (self IntegerOrString) MarshalJSON() ([]byte, error) {
+func (self *IntegerOrString) MarshalJSON() ([]byte, error) {
 	return json.Marshal(self.Value)
 }
 
 // json.Unmarshaler interface
-func (self IntegerOrString) UnmarshalJSON(data []byte) error {
+func (self *IntegerOrString) UnmarshalJSON(data []byte) error {
 	var value Integer
 	if err := json.Unmarshal(data, &value); err == nil {
 		self.Value = value
