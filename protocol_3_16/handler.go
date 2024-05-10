@@ -81,6 +81,7 @@ type Handler struct {
 	TextDocumentSemanticTokensRange     TextDocumentSemanticTokensRangeFunc
 	TextDocumentLinkedEditingRange      TextDocumentLinkedEditingRangeFunc
 	TextDocumentMoniker                 TextDocumentMonikerFunc
+	TextDocumentDiagnostic              TextDocumentDiagnosticFunc
 
 	initialized bool
 	lock        sync.Mutex
@@ -709,6 +710,15 @@ func (self *Handler) Handle(context *glsp.Context) (r any, validMethod bool, val
 				r, err = self.TextDocumentMoniker(context, &params)
 			}
 		}
+	case MethodTextDocumentDiagnostic:
+		if self.TextDocumentDiagnostic != nil {
+			validMethod = true
+			var params DocumentDiagnosticParams
+			if err = json.Unmarshal(context.Params, &params); err == nil {
+				validParams = true
+				r, err = self.TextDocumentDiagnostic(context, &params)
+			}
+		}
 	}
 
 	return
@@ -958,6 +968,13 @@ func (self *Handler) CreateServerCapabilities() ServerCapabilities {
 		}
 		capabilities.Workspace.FileOperations.WillDelete = &FileOperationRegistrationOptions{
 			Filters: []FileOperationFilter{},
+		}
+	}
+
+	if self.TextDocumentDiagnostic != nil {
+		capabilities.DiagnosticProvider = DiagnosticOptions{
+			InterFileDependencies: true,
+			WorkspaceDiagnostics:  false,
 		}
 	}
 
