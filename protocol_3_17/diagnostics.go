@@ -1,8 +1,8 @@
-package protocol317
+package protocol
 
 import (
 	"github.com/tliron/glsp"
-	protocol "github.com/tliron/glsp/protocol_3_16"
+	protocol316 "github.com/tliron/glsp/protocol_3_16"
 )
 
 /**
@@ -32,7 +32,7 @@ type DiagnosticClientCapabilities struct {
  * @since 3.17.0
  */
 type DiagnosticOptions struct {
-	protocol.WorkDoneProgressOptions
+	protocol316.WorkDoneProgressOptions
 	/**
 	 * An optional identifier under which the diagnostics are
 	 * managed by the client.
@@ -59,12 +59,12 @@ type DiagnosticOptions struct {
  * @since 3.17.0
  */
 type DiagnosticRegistrationOptions struct {
-	protocol.TextDocumentRegistrationOptions
+	protocol316.TextDocumentRegistrationOptions
 	DiagnosticOptions
-	protocol.StaticRegistrationOptions
+	protocol316.StaticRegistrationOptions
 }
 
-const MethodTextDocumentDiagnostic = protocol.Method("textDocument/diagnostic")
+const MethodTextDocumentDiagnostic = protocol316.Method("textDocument/diagnostic")
 
 type TextDocumentDiagnosticFunc func(context *glsp.Context, params *DocumentDiagnosticParams) (any, error)
 
@@ -74,13 +74,13 @@ type TextDocumentDiagnosticFunc func(context *glsp.Context, params *DocumentDiag
  * @since 3.17.0
  */
 type DocumentDiagnosticParams struct {
-	protocol.WorkDoneProgressParams
-	protocol.PartialResultParams
+	protocol316.WorkDoneProgressParams
+	protocol316.PartialResultParams
 
 	/**
 	 * The text document.
 	 */
-	TextDocument protocol.TextDocumentIdentifier `json:"textDocument"`
+	TextDocument protocol316.TextDocumentIdentifier `json:"textDocument"`
 
 	/**
 	 * The additional identifier  provided during registration.
@@ -145,7 +145,7 @@ type FullDocumentDiagnosticReport struct {
 	/**
 	 * The actual items.
 	 */
-	Items []protocol.Diagnostic `json:"items"`
+	Items []protocol316.Diagnostic `json:"items"`
 }
 
 /**
@@ -186,7 +186,7 @@ type RelatedFullDocumentDiagnosticReport struct {
 	 *
 	 * @since 3.17.0
 	 */
-	RelatedDocuments map[protocol.DocumentUri]interface{} `json:"relatedDocuments,omitempty"`
+	RelatedDocuments map[protocol316.DocumentUri]interface{} `json:"relatedDocuments,omitempty"`
 }
 
 /**
@@ -205,7 +205,7 @@ type RelatedUnchangedDocumentDiagnosticReport struct {
 	 *
 	 * @since 3.17.0
 	 */
-	RelatedDocuments map[protocol.DocumentUri]interface{} `json:"relatedDocuments,omitempty"`
+	RelatedDocuments map[protocol316.DocumentUri]interface{} `json:"relatedDocuments,omitempty"`
 }
 
 /**
@@ -214,7 +214,7 @@ type RelatedUnchangedDocumentDiagnosticReport struct {
  * @since 3.17.0
  */
 type DocumentDiagnosticReportPartialResult struct {
-	RelatedDocuments map[protocol.DocumentUri]interface{} `json:"relatedDocuments"`
+	RelatedDocuments map[protocol316.DocumentUri]interface{} `json:"relatedDocuments"`
 }
 
 /**

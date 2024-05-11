@@ -1,21 +1,21 @@
-package protocol317
+package protocol
 
 import (
 	"encoding/json"
 
 	"github.com/tliron/glsp"
-	protocol "github.com/tliron/glsp/protocol_3_16"
+	protocol316 "github.com/tliron/glsp/protocol_3_16"
 )
 
 // https://microsoft.github.io/language-server-protocol/specifications/specification-3-16#initialize
 
-const MethodInitialize = protocol.Method("initialize")
+const MethodInitialize = protocol316.Method("initialize")
 
 // Returns: InitializeResult | InitializeError
 type InitializeFunc func(context *glsp.Context, params *InitializeParams) (any, error)
 
 type InitializeParams struct {
-	protocol.InitializeParams
+	protocol316.InitializeParams
 
 	/**
 	 * The capabilities provided by the client (editor or tool)
@@ -24,7 +24,7 @@ type InitializeParams struct {
 }
 
 type ClientCapabilities struct {
-	protocol.ClientCapabilities
+	protocol316.ClientCapabilities
 
 	TextDocument *TextDocumentClientCapabilities `json:"textDocument,omitempty"`
 }
@@ -33,7 +33,7 @@ type ClientCapabilities struct {
  * Text document specific client capabilities.
  */
 type TextDocumentClientCapabilities struct {
-	protocol.TextDocumentClientCapabilities
+	protocol316.TextDocumentClientCapabilities
 
 	/**
 	 * Capabilities specific to the diagnostic pull model.
@@ -44,7 +44,7 @@ type TextDocumentClientCapabilities struct {
 }
 
 type ServerCapabilities struct {
-	protocol.ServerCapabilities
+	protocol316.ServerCapabilities
 
 	/**
 	 * The server has support for pull model diagnostics.
@@ -56,36 +56,36 @@ type ServerCapabilities struct {
 
 func (self *ServerCapabilities) UnmarshalJSON(data []byte) error {
 	var value struct {
-		TextDocumentSync                 json.RawMessage                           `json:"textDocumentSync,omitempty"` // nil | TextDocumentSyncOptions | TextDocumentSyncKind
-		CompletionProvider               *protocol.CompletionOptions               `json:"completionProvider,omitempty"`
-		HoverProvider                    json.RawMessage                           `json:"hoverProvider,omitempty"` // nil | bool | HoverOptions
-		SignatureHelpProvider            *protocol.SignatureHelpOptions            `json:"signatureHelpProvider,omitempty"`
-		DeclarationProvider              json.RawMessage                           `json:"declarationProvider,omitempty"`       // nil | bool | DeclarationOptions | DeclarationRegistrationOptions
-		DefinitionProvider               json.RawMessage                           `json:"definitionProvider,omitempty"`        // nil | bool | DefinitionOptions
-		TypeDefinitionProvider           json.RawMessage                           `json:"typeDefinitionProvider,omitempty"`    // nil | bool | TypeDefinitionOption | TypeDefinitionRegistrationOptions
-		ImplementationProvider           json.RawMessage                           `json:"implementationProvider,omitempty"`    // nil | bool | ImplementationOptions | ImplementationRegistrationOptions
-		ReferencesProvider               json.RawMessage                           `json:"referencesProvider,omitempty"`        // nil | bool | ReferenceOptions
-		DocumentHighlightProvider        json.RawMessage                           `json:"documentHighlightProvider,omitempty"` // nil | bool | DocumentHighlightOptions
-		DocumentSymbolProvider           json.RawMessage                           `json:"documentSymbolProvider,omitempty"`    // nil | bool | DocumentSymbolOptions
-		CodeActionProvider               json.RawMessage                           `json:"codeActionProvider,omitempty"`        // nil | bool | CodeActionOptions
-		CodeLensProvider                 *protocol.CodeLensOptions                 `json:"codeLensProvider,omitempty"`
-		DocumentLinkProvider             *protocol.DocumentLinkOptions             `json:"documentLinkProvider,omitempty"`
-		ColorProvider                    json.RawMessage                           `json:"colorProvider,omitempty"`                   // nil | bool | DocumentColorOptions | DocumentColorRegistrationOptions
-		DocumentFormattingProvider       json.RawMessage                           `json:"documentFormattingProvider,omitempty"`      // nil | bool | DocumentFormattingOptions
-		DocumentRangeFormattingProvider  json.RawMessage                           `json:"documentRangeFormattingProvider,omitempty"` // nil | bool | DocumentRangeFormattingOptions
-		DocumentOnTypeFormattingProvider *protocol.DocumentOnTypeFormattingOptions `json:"documentOnTypeFormattingProvider,omitempty"`
-		RenameProvider                   json.RawMessage                           `json:"renameProvider,omitempty"`       // nil | bool | RenameOptions
-		FoldingRangeProvider             json.RawMessage                           `json:"foldingRangeProvider,omitempty"` // nil | bool | FoldingRangeOptions | FoldingRangeRegistrationOptions
-		ExecuteCommandProvider           *protocol.ExecuteCommandOptions           `json:"executeCommandProvider,omitempty"`
-		SelectionRangeProvider           json.RawMessage                           `json:"selectionRangeProvider,omitempty"`     // nil | bool | SelectionRangeOptions | SelectionRangeRegistrationOptions
-		LinkedEditingRangeProvider       json.RawMessage                           `json:"linkedEditingRangeProvider,omitempty"` // nil | bool | LinkedEditingRangeOptions | LinkedEditingRangeRegistrationOptions
-		CallHierarchyProvider            json.RawMessage                           `json:"callHierarchyProvider,omitempty"`      // nil | bool | CallHierarchyOptions | CallHierarchyRegistrationOptions
-		SemanticTokensProvider           json.RawMessage                           `json:"semanticTokensProvider,omitempty"`     // nil | SemanticTokensOptions | SemanticTokensRegistrationOptions
-		MonikerProvider                  json.RawMessage                           `json:"monikerProvider,omitempty"`            // nil | bool | MonikerOptions | MonikerRegistrationOptions
-		WorkspaceSymbolProvider          json.RawMessage                           `json:"workspaceSymbolProvider,omitempty"`    // nil | bool | WorkspaceSymbolOptions
-		Workspace                        *protocol.ServerCapabilitiesWorkspace     `json:"workspace,omitempty"`
-		Experimental                     *any                                      `json:"experimental,omitempty"`
-		DiagnosticProvider               json.RawMessage                           `json:"diagnosticProvider,omitempty"` // nil | DiagnosticOptions | DiagnosticRegistrationOptions
+		TextDocumentSync                 json.RawMessage                              `json:"textDocumentSync,omitempty"` // nil | TextDocumentSyncOptions | TextDocumentSyncKind
+		CompletionProvider               *protocol316.CompletionOptions               `json:"completionProvider,omitempty"`
+		HoverProvider                    json.RawMessage                              `json:"hoverProvider,omitempty"` // nil | bool | HoverOptions
+		SignatureHelpProvider            *protocol316.SignatureHelpOptions            `json:"signatureHelpProvider,omitempty"`
+		DeclarationProvider              json.RawMessage                              `json:"declarationProvider,omitempty"`       // nil | bool | DeclarationOptions | DeclarationRegistrationOptions
+		DefinitionProvider               json.RawMessage                              `json:"definitionProvider,omitempty"`        // nil | bool | DefinitionOptions
+		TypeDefinitionProvider           json.RawMessage                              `json:"typeDefinitionProvider,omitempty"`    // nil | bool | TypeDefinitionOption | TypeDefinitionRegistrationOptions
+		ImplementationProvider           json.RawMessage                              `json:"implementationProvider,omitempty"`    // nil | bool | ImplementationOptions | ImplementationRegistrationOptions
+		ReferencesProvider               json.RawMessage                              `json:"referencesProvider,omitempty"`        // nil | bool | ReferenceOptions
+		DocumentHighlightProvider        json.RawMessage                              `json:"documentHighlightProvider,omitempty"` // nil | bool | DocumentHighlightOptions
+		DocumentSymbolProvider           json.RawMessage                              `json:"documentSymbolProvider,omitempty"`    // nil | bool | DocumentSymbolOptions
+		CodeActionProvider               json.RawMessage                              `json:"codeActionProvider,omitempty"`        // nil | bool | CodeActionOptions
+		CodeLensProvider                 *protocol316.CodeLensOptions                 `json:"codeLensProvider,omitempty"`
+		DocumentLinkProvider             *protocol316.DocumentLinkOptions             `json:"documentLinkProvider,omitempty"`
+		ColorProvider                    json.RawMessage                              `json:"colorProvider,omitempty"`                   // nil | bool | DocumentColorOptions | DocumentColorRegistrationOptions
+		DocumentFormattingProvider       json.RawMessage                              `json:"documentFormattingProvider,omitempty"`      // nil | bool | DocumentFormattingOptions
+		DocumentRangeFormattingProvider  json.RawMessage                              `json:"documentRangeFormattingProvider,omitempty"` // nil | bool | DocumentRangeFormattingOptions
+		DocumentOnTypeFormattingProvider *protocol316.DocumentOnTypeFormattingOptions `json:"documentOnTypeFormattingProvider,omitempty"`
+		RenameProvider                   json.RawMessage                              `json:"renameProvider,omitempty"`       // nil | bool | RenameOptions
+		FoldingRangeProvider             json.RawMessage                              `json:"foldingRangeProvider,omitempty"` // nil | bool | FoldingRangeOptions | FoldingRangeRegistrationOptions
+		ExecuteCommandProvider           *protocol316.ExecuteCommandOptions           `json:"executeCommandProvider,omitempty"`
+		SelectionRangeProvider           json.RawMessage                              `json:"selectionRangeProvider,omitempty"`     // nil | bool | SelectionRangeOptions | SelectionRangeRegistrationOptions
+		LinkedEditingRangeProvider       json.RawMessage                              `json:"linkedEditingRangeProvider,omitempty"` // nil | bool | LinkedEditingRangeOptions | LinkedEditingRangeRegistrationOptions
+		CallHierarchyProvider            json.RawMessage                              `json:"callHierarchyProvider,omitempty"`      // nil | bool | CallHierarchyOptions | CallHierarchyRegistrationOptions
+		SemanticTokensProvider           json.RawMessage                              `json:"semanticTokensProvider,omitempty"`     // nil | SemanticTokensOptions | SemanticTokensRegistrationOptions
+		MonikerProvider                  json.RawMessage                              `json:"monikerProvider,omitempty"`            // nil | bool | MonikerOptions | MonikerRegistrationOptions
+		WorkspaceSymbolProvider          json.RawMessage                              `json:"workspaceSymbolProvider,omitempty"`    // nil | bool | WorkspaceSymbolOptions
+		Workspace                        *protocol316.ServerCapabilitiesWorkspace     `json:"workspace,omitempty"`
+		Experimental                     *any                                         `json:"experimental,omitempty"`
+		DiagnosticProvider               json.RawMessage                              `json:"diagnosticProvider,omitempty"` // nil | DiagnosticOptions | DiagnosticRegistrationOptions
 	}
 
 	if err := json.Unmarshal(data, &value); err == nil {
@@ -98,11 +98,11 @@ func (self *ServerCapabilities) UnmarshalJSON(data []byte) error {
 		self.Workspace = value.Workspace
 
 		if value.TextDocumentSync != nil {
-			var value_ protocol.TextDocumentSyncOptions
+			var value_ protocol316.TextDocumentSyncOptions
 			if err = json.Unmarshal(value.TextDocumentSync, &value_); err == nil {
 				self.TextDocumentSync = value_
 			} else {
-				var value_ protocol.TextDocumentSyncKind
+				var value_ protocol316.TextDocumentSyncKind
 				if err = json.Unmarshal(value.TextDocumentSync, &value_); err == nil {
 					self.TextDocumentSync = value_
 				} else {
@@ -116,7 +116,7 @@ func (self *ServerCapabilities) UnmarshalJSON(data []byte) error {
 			if err = json.Unmarshal(value.HoverProvider, &value_); err == nil {
 				self.HoverProvider = value_
 			} else {
-				var value_ protocol.HoverOptions
+				var value_ protocol316.HoverOptions
 				if err = json.Unmarshal(value.HoverProvider, &value_); err == nil {
 					self.HoverProvider = value_
 				} else {
@@ -130,11 +130,11 @@ func (self *ServerCapabilities) UnmarshalJSON(data []byte) error {
 			if err = json.Unmarshal(value.DeclarationProvider, &value_); err == nil {
 				self.DeclarationProvider = value_
 			} else {
-				var value_ protocol.DeclarationOptions
+				var value_ protocol316.DeclarationOptions
 				if err = json.Unmarshal(value.DeclarationProvider, &value_); err == nil {
 					self.DeclarationProvider = value_
 				} else {
-					var value_ protocol.DeclarationRegistrationOptions
+					var value_ protocol316.DeclarationRegistrationOptions
 					if err = json.Unmarshal(value.DeclarationProvider, &value_); err == nil {
 						self.DeclarationProvider = value_
 					} else {
@@ -149,7 +149,7 @@ func (self *ServerCapabilities) UnmarshalJSON(data []byte) error {
 			if err = json.Unmarshal(value.DefinitionProvider, &value_); err == nil {
 				self.DefinitionProvider = value_
 			} else {
-				var value_ protocol.DefinitionOptions
+				var value_ protocol316.DefinitionOptions
 				if err = json.Unmarshal(value.DefinitionProvider, &value_); err == nil {
 					self.DefinitionProvider = value_
 				} else {
@@ -163,11 +163,11 @@ func (self *ServerCapabilities) UnmarshalJSON(data []byte) error {
 			if err = json.Unmarshal(value.TypeDefinitionProvider, &value_); err == nil {
 				self.TypeDefinitionProvider = value_
 			} else {
-				var value_ protocol.TypeDefinitionOptions
+				var value_ protocol316.TypeDefinitionOptions
 				if err = json.Unmarshal(value.TypeDefinitionProvider, &value_); err == nil {
 					self.TypeDefinitionProvider = value_
 				} else {
-					var value_ protocol.TypeDefinitionRegistrationOptions
+					var value_ protocol316.TypeDefinitionRegistrationOptions
 					if err = json.Unmarshal(value.TypeDefinitionProvider, &value_); err == nil {
 						self.TypeDefinitionProvider = value_
 					} else {
@@ -182,11 +182,11 @@ func (self *ServerCapabilities) UnmarshalJSON(data []byte) error {
 			if err = json.Unmarshal(value.ImplementationProvider, &value_); err == nil {
 				self.ImplementationProvider = value_
 			} else {
-				var value_ protocol.ImplementationOptions
+				var value_ protocol316.ImplementationOptions
 				if err = json.Unmarshal(value.ImplementationProvider, &value_); err == nil {
 					self.ImplementationProvider = value_
 				} else {
-					var value_ protocol.ImplementationRegistrationOptions
+					var value_ protocol316.ImplementationRegistrationOptions
 					if err = json.Unmarshal(value.ImplementationProvider, &value_); err == nil {
 						self.ImplementationProvider = value_
 					} else {
@@ -201,7 +201,7 @@ func (self *ServerCapabilities) UnmarshalJSON(data []byte) error {
 			if err = json.Unmarshal(value.ReferencesProvider, &value_); err == nil {
 				self.ReferencesProvider = value_
 			} else {
-				var value_ protocol.ReferenceOptions
+				var value_ protocol316.ReferenceOptions
 				if err = json.Unmarshal(value.ReferencesProvider, &value_); err == nil {
 					self.ReferencesProvider = value_
 				} else {
@@ -215,7 +215,7 @@ func (self *ServerCapabilities) UnmarshalJSON(data []byte) error {
 			if err = json.Unmarshal(value.DocumentHighlightProvider, &value_); err == nil {
 				self.DocumentHighlightProvider = value_
 			} else {
-				var value_ protocol.DocumentHighlightOptions
+				var value_ protocol316.DocumentHighlightOptions
 				if err = json.Unmarshal(value.DocumentHighlightProvider, &value_); err == nil {
 					self.DocumentHighlightProvider = value_
 				} else {
@@ -229,7 +229,7 @@ func (self *ServerCapabilities) UnmarshalJSON(data []byte) error {
 			if err = json.Unmarshal(value.DocumentSymbolProvider, &value_); err == nil {
 				self.DocumentSymbolProvider = value_
 			} else {
-				var value_ protocol.DocumentSymbolOptions
+				var value_ protocol316.DocumentSymbolOptions
 				if err = json.Unmarshal(value.DocumentSymbolProvider, &value_); err == nil {
 					self.DocumentSymbolProvider = value_
 				} else {
@@ -243,7 +243,7 @@ func (self *ServerCapabilities) UnmarshalJSON(data []byte) error {
 			if err = json.Unmarshal(value.CodeActionProvider, &value_); err == nil {
 				self.CodeActionProvider = value_
 			} else {
-				var value_ protocol.CodeActionOptions
+				var value_ protocol316.CodeActionOptions
 				if err = json.Unmarshal(value.CodeActionProvider, &value_); err == nil {
 					self.CodeActionProvider = value_
 				} else {
@@ -257,11 +257,11 @@ func (self *ServerCapabilities) UnmarshalJSON(data []byte) error {
 			if err = json.Unmarshal(value.ColorProvider, &value_); err == nil {
 				self.ColorProvider = value_
 			} else {
-				var value_ protocol.DocumentColorOptions
+				var value_ protocol316.DocumentColorOptions
 				if err = json.Unmarshal(value.ColorProvider, &value_); err == nil {
 					self.ColorProvider = value_
 				} else {
-					var value_ protocol.DocumentColorRegistrationOptions
+					var value_ protocol316.DocumentColorRegistrationOptions
 					if err = json.Unmarshal(value.ColorProvider, &value_); err == nil {
 						self.ColorProvider = value_
 					} else {
@@ -276,7 +276,7 @@ func (self *ServerCapabilities) UnmarshalJSON(data []byte) error {
 			if err = json.Unmarshal(value.DocumentFormattingProvider, &value_); err == nil {
 				self.DocumentFormattingProvider = value_
 			} else {
-				var value_ protocol.DocumentFormattingOptions
+				var value_ protocol316.DocumentFormattingOptions
 				if err = json.Unmarshal(value.DocumentFormattingProvider, &value_); err == nil {
 					self.DocumentFormattingProvider = value_
 				} else {
@@ -290,7 +290,7 @@ func (self *ServerCapabilities) UnmarshalJSON(data []byte) error {
 			if err = json.Unmarshal(value.DocumentRangeFormattingProvider, &value_); err == nil {
 				self.DocumentRangeFormattingProvider = value_
 			} else {
-				var value_ protocol.DocumentRangeFormattingOptions
+				var value_ protocol316.DocumentRangeFormattingOptions
 				if err = json.Unmarshal(value.DocumentRangeFormattingProvider, &value_); err == nil {
 					self.DocumentRangeFormattingProvider = value_
 				} else {
@@ -304,7 +304,7 @@ func (self *ServerCapabilities) UnmarshalJSON(data []byte) error {
 			if err = json.Unmarshal(value.RenameProvider, &value_); err == nil {
 				self.RenameProvider = value_
 			} else {
-				var value_ protocol.RenameOptions
+				var value_ protocol316.RenameOptions
 				if err = json.Unmarshal(value.RenameProvider, &value_); err == nil {
 					self.RenameProvider = value_
 				} else {
@@ -318,11 +318,11 @@ func (self *ServerCapabilities) UnmarshalJSON(data []byte) error {
 			if err = json.Unmarshal(value.FoldingRangeProvider, &value_); err == nil {
 				self.FoldingRangeProvider = value_
 			} else {
-				var value_ protocol.FoldingRangeOptions
+				var value_ protocol316.FoldingRangeOptions
 				if err = json.Unmarshal(value.FoldingRangeProvider, &value_); err == nil {
 					self.FoldingRangeProvider = value_
 				} else {
-					var value_ protocol.FoldingRangeRegistrationOptions
+					var value_ protocol316.FoldingRangeRegistrationOptions
 					if err = json.Unmarshal(value.FoldingRangeProvider, &value_); err == nil {
 						self.FoldingRangeProvider = value_
 					} else {
@@ -337,11 +337,11 @@ func (self *ServerCapabilities) UnmarshalJSON(data []byte) error {
 			if err = json.Unmarshal(value.SelectionRangeProvider, &value_); err == nil {
 				self.SelectionRangeProvider = value_
 			} else {
-				var value_ protocol.SelectionRangeOptions
+				var value_ protocol316.SelectionRangeOptions
 				if err = json.Unmarshal(value.SelectionRangeProvider, &value_); err == nil {
 					self.SelectionRangeProvider = value_
 				} else {
-					var value_ protocol.SelectionRangeRegistrationOptions
+					var value_ protocol316.SelectionRangeRegistrationOptions
 					if err = json.Unmarshal(value.SelectionRangeProvider, &value_); err == nil {
 						self.SelectionRangeProvider = value_
 					} else {
@@ -356,11 +356,11 @@ func (self *ServerCapabilities) UnmarshalJSON(data []byte) error {
 			if err = json.Unmarshal(value.LinkedEditingRangeProvider, &value_); err == nil {
 				self.LinkedEditingRangeProvider = value_
 			} else {
-				var value_ protocol.LinkedEditingRangeOptions
+				var value_ protocol316.LinkedEditingRangeOptions
 				if err = json.Unmarshal(value.LinkedEditingRangeProvider, &value_); err == nil {
 					self.LinkedEditingRangeProvider = value_
 				} else {
-					var value_ protocol.LinkedEditingRangeRegistrationOptions
+					var value_ protocol316.LinkedEditingRangeRegistrationOptions
 					if err = json.Unmarshal(value.LinkedEditingRangeProvider, &value_); err == nil {
 						self.LinkedEditingRangeProvider = value_
 					} else {
@@ -375,11 +375,11 @@ func (self *ServerCapabilities) UnmarshalJSON(data []byte) error {
 			if err = json.Unmarshal(value.CallHierarchyProvider, &value_); err == nil {
 				self.CallHierarchyProvider = value_
 			} else {
-				var value_ protocol.CallHierarchyOptions
+				var value_ protocol316.CallHierarchyOptions
 				if err = json.Unmarshal(value.CallHierarchyProvider, &value_); err == nil {
 					self.CallHierarchyProvider = value_
 				} else {
-					var value_ protocol.CallHierarchyRegistrationOptions
+					var value_ protocol316.CallHierarchyRegistrationOptions
 					if err = json.Unmarshal(value.CallHierarchyProvider, &value_); err == nil {
 						self.CallHierarchyProvider = value_
 					} else {
@@ -390,11 +390,11 @@ func (self *ServerCapabilities) UnmarshalJSON(data []byte) error {
 		}
 
 		if value.SemanticTokensProvider != nil {
-			var value_ protocol.SemanticTokensOptions
+			var value_ protocol316.SemanticTokensOptions
 			if err = json.Unmarshal(value.SemanticTokensProvider, &value_); err == nil {
 				self.SemanticTokensProvider = value_
 			} else {
-				var value_ protocol.SemanticTokensRegistrationOptions
+				var value_ protocol316.SemanticTokensRegistrationOptions
 				if err = json.Unmarshal(value.SemanticTokensProvider, &value_); err == nil {
 					self.SemanticTokensProvider = value_
 				} else {
@@ -408,11 +408,11 @@ func (self *ServerCapabilities) UnmarshalJSON(data []byte) error {
 			if err = json.Unmarshal(value.MonikerProvider, &value_); err == nil {
 				self.MonikerProvider = value_
 			} else {
-				var value_ protocol.MonikerOptions
+				var value_ protocol316.MonikerOptions
 				if err = json.Unmarshal(value.MonikerProvider, &value_); err == nil {
 					self.MonikerProvider = value_
 				} else {
-					var value_ protocol.MonikerRegistrationOptions
+					var value_ protocol316.MonikerRegistrationOptions
 					if err = json.Unmarshal(value.MonikerProvider, &value_); err == nil {
 						self.MonikerProvider = value_
 					} else {
@@ -427,7 +427,7 @@ func (self *ServerCapabilities) UnmarshalJSON(data []byte) error {
 			if err = json.Unmarshal(value.WorkspaceSymbolProvider, &value_); err == nil {
 				self.WorkspaceSymbolProvider = value_
 			} else {
-				var value_ protocol.WorkspaceSymbolOptions
+				var value_ protocol316.WorkspaceSymbolOptions
 				if err = json.Unmarshal(value.WorkspaceSymbolProvider, &value_); err == nil {
 					self.WorkspaceSymbolProvider = value_
 				} else {
@@ -467,5 +467,5 @@ type InitializeResult struct {
 	 *
 	 * @since 3.15.0
 	 */
-	ServerInfo *protocol.InitializeResultServerInfo `json:"serverInfo,omitempty"`
+	ServerInfo *protocol316.InitializeResultServerInfo `json:"serverInfo,omitempty"`
 }
