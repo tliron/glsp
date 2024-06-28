@@ -12,4 +12,4 @@ type CustomRequestHandler struct {
 	params json.RawMessage
 }
 
-type CustomRequestFunc func(context *glsp.Context, params json.RawMessage) error
+type CustomRequestFunc func(context *glsp.Context, params json.RawMessage) (any, error)

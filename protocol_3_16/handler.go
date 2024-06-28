@@ -719,7 +719,7 @@ func (self *Handler) Handle(context *glsp.Context) (r any, validMethod bool, val
 				validMethod = true
 				if err = json.Unmarshal(context.Params, &handler.params); err == nil {
 					validParams = true
-					err = handler.Func(context, handler.params)
+					r, err = handler.Func(context, handler.params)
 				}
 			}
 		}
