@@ -648,10 +648,30 @@ func (self *Handler) Handle(context *glsp.Context) (r any, validMethod bool, val
 				r, err = self.TextDocumentDiagnostic(context, &params)
 			}
 		}
+
+	default:
+		if self.CustomRequest != nil {
+			if handler, ok := self.FindCustomRequestHandler(context.Method); ok {
+				validMethod = true
+				if err = json.Unmarshal(context.Params, &handler.params); err == nil {
+					validParams = true
+					err = handler.Func(context, handler.params)
+				}
+			}
+		}
+
 	}
 
 	return
+}
 
+func (self *Handler) FindCustomRequestHandler(method string) (*CustomRequestHandler, bool) {
+	for _, handler := range self.CustomRequest {
+		if handler.Method == method {
+			return &handler, true
+		}
+	}
+	return nil, false
 }
 
 func (self *Handler) IsInitialized() bool {
