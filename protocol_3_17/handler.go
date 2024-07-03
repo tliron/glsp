@@ -653,9 +653,9 @@ func (self *Handler) Handle(context *glsp.Context) (r any, validMethod bool, val
 		if self.CustomRequest != nil {
 			if handler, ok := self.FindCustomRequestHandler(context.Method); ok {
 				validMethod = true
-				if err = json.Unmarshal(context.Params, &handler.params); err == nil {
+				if err = json.Unmarshal(context.Params, &handler.Params); err == nil {
 					validParams = true
-					err = handler.Func(context, handler.params)
+					r, err = handler.Func(context, handler.Params)
 				}
 			}
 		}
@@ -665,7 +665,7 @@ func (self *Handler) Handle(context *glsp.Context) (r any, validMethod bool, val
 	return
 }
 
-func (self *Handler) FindCustomRequestHandler(method string) (*CustomRequestHandler, bool) {
+func (self *Handler) FindCustomRequestHandler(method string) (*protocol316.CustomRequestHandler, bool) {
 	for _, handler := range self.CustomRequest {
 		if handler.Method == method {
 			return &handler, true

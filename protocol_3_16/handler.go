@@ -717,9 +717,9 @@ func (self *Handler) Handle(context *glsp.Context) (r any, validMethod bool, val
 		if self.CustomRequest != nil {
 			if handler, ok := self.FindCustomRequestHandler(context.Method); ok {
 				validMethod = true
-				if err = json.Unmarshal(context.Params, &handler.params); err == nil {
+				if err = json.Unmarshal(context.Params, &handler.Params); err == nil {
 					validParams = true
-					r, err = handler.Func(context, handler.params)
+					r, err = handler.Func(context, handler.Params)
 				}
 			}
 		}
