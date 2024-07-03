@@ -37,11 +37,8 @@ func (self *Server) handle(context contextpkg.Context, connection *jsonrpc2.Conn
 	switch request.Method {
 	case "exit":
 		// We're giving the attached handler a chance to handle it first, but we'll ignore any result
-		_, _, _, err := self.Handler.Handle(&glspContext)
-		if err != nil {
-			return nil, err
-		}
-		err = connection.Close()
+		self.Handler.Handle(&glspContext)
+		err := connection.Close()
 		return nil, err
 
 	default:
