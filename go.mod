@@ -3,10 +3,10 @@ module github.com/tliron/glsp
 go 1.22
 
 require (
-	github.com/gorilla/websocket v1.5.1
+	github.com/gorilla/websocket v1.5.3
 	github.com/pkg/errors v0.9.1
 	github.com/sourcegraph/jsonrpc2 v0.2.0
-	github.com/tliron/commonlog v0.2.15
+	github.com/tliron/commonlog v0.2.18
 )
 
 require (
@@ -20,9 +20,8 @@ require (
 	github.com/rivo/uniseg v0.2.0 // indirect
 	github.com/sasha-s/go-deadlock v0.3.1 // indirect
 	github.com/segmentio/ksuid v1.0.4 // indirect
-	github.com/tliron/kutil v0.3.18 // indirect
-	golang.org/x/crypto v0.21.0 // indirect
-	golang.org/x/net v0.21.0 // indirect
-	golang.org/x/sys v0.18.0 // indirect
-	golang.org/x/term v0.18.0 // indirect
+	github.com/tliron/kutil v0.3.25 // indirect
+	golang.org/x/crypto v0.26.0 // indirect
+	golang.org/x/sys v0.23.0 // indirect
+	golang.org/x/term v0.23.0 // indirect
 )
