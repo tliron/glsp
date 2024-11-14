@@ -5,6 +5,7 @@ import (
 	"fmt"
 
 	"github.com/sourcegraph/jsonrpc2"
+
 	"github.com/tliron/glsp"
 )
 
@@ -16,7 +17,8 @@ func (self *Server) newHandler() jsonrpc2.Handler {
 
 func (self *Server) handle(context contextpkg.Context, connection *jsonrpc2.Conn, request *jsonrpc2.Request) (any, error) {
 	glspContext := glsp.Context{
-		Method: request.Method,
+		Method:    request.Method,
+		RequestID: request.ID,
 		Notify: func(method string, params any) {
 			if err := connection.Notify(context, method, params); err != nil {
 				self.Log.Error(err.Error())
