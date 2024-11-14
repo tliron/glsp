@@ -12,7 +12,7 @@ import (
 // See: https://github.com/sourcegraph/go-langserver/blob/master/langserver/handler.go#L206
 
 func (self *Server) newHandler() jsonrpc2.Handler {
-	return jsonrpc2.HandlerWithError(self.handle)
+	return jsonrpc2.AsyncHandler(jsonrpc2.HandlerWithError(self.handle))
 }
 
 func (self *Server) handle(context contextpkg.Context, connection *jsonrpc2.Conn, request *jsonrpc2.Request) (any, error) {
