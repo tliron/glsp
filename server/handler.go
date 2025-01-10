@@ -38,9 +38,7 @@ type lspHandler struct {
 func (a *lspHandler) Handle(ctx contextpkg.Context, conn *jsonrpc2.Conn, request *jsonrpc2.Request) {
 	// for cancel requests, allow preemption, and don't consider it part of the request queue
 	if request.Method == "$/cancelRequest" {
-		go func() {
-			a.wrapped.Handle(ctx, conn, request)
-		}()
+		go a.wrapped.Handle(ctx, conn, request)
 		return
 	}
 
