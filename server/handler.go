@@ -12,33 +12,30 @@ import (
 
 // See: https://github.com/sourcegraph/go-langserver/blob/master/langserver/handler.go#L206
 func (self *Server) newHandler() jsonrpc2.Handler {
-	return newAsyncHandler(
+	return newLSPHandler(
 		jsonrpc2.HandlerWithError(self.handle),
 	)
 }
 
-// AsyncHandler returns a handler that processes each request goes in its own
-// goroutine.
-// The handler returns immediately, without the request being processed.
-// Each request then waits for the previous request to finish before it starts.
-// This allows the stream to unblock at the cost of unbounded goroutines
-// all stalled on the previous one.
-func newAsyncHandler(handler jsonrpc2.Handler) jsonrpc2.Handler {
+// newLSPHandler returns a handler that processes each request goes in its own
+// goroutine, processing requests in a FIFO fashion besides $/cancelRequest, which are not queued.
+// It allows unbounded goroutines, all stalled on the previous one.
+func newLSPHandler(handler jsonrpc2.Handler) jsonrpc2.Handler {
 	head := make(chan struct{})
 	close(head)
-	return &asyncHandler{
+	return &lspHandler{
 		wrapped: handler,
 		head:    head,
 	}
 }
 
-type asyncHandler struct {
+type lspHandler struct {
 	wrapped jsonrpc2.Handler
 	head    chan struct{}
 	mx      sync.Mutex
 }
 
-func (a *asyncHandler) Handle(ctx contextpkg.Context, conn *jsonrpc2.Conn, request *jsonrpc2.Request) {
+func (a *lspHandler) Handle(ctx contextpkg.Context, conn *jsonrpc2.Conn, request *jsonrpc2.Request) {
 	// for cancel requests, allow preemption, and don't consider it part of the request queue
 	if request.Method == "$/cancelRequest" {
 		go func() {

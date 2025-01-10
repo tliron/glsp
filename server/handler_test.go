@@ -10,7 +10,7 @@ import (
 	"github.com/sourcegraph/jsonrpc2"
 )
 
-func TestAsyncHandler_Handle(t *testing.T) {
+func TestLSPHandler(t *testing.T) {
 	wg := sync.WaitGroup{}
 	received := make(chan string, 20)
 	mockHandler := &MockHandler{
@@ -22,7 +22,7 @@ func TestAsyncHandler_Handle(t *testing.T) {
 		},
 	}
 
-	ah := newAsyncHandler(mockHandler)
+	ah := newLSPHandler(mockHandler)
 	for i := 0; i < 10; i++ {
 		wg.Add(1)
 		ah.Handle(context.Background(), &jsonrpc2.Conn{}, &jsonrpc2.Request{
@@ -45,7 +45,7 @@ func TestAsyncHandler_Handle(t *testing.T) {
 	}
 }
 
-func TestAsyncHandler_Handle_CancelRequest(t *testing.T) {
+func TestLSPHandler_Cancel(t *testing.T) {
 	done := make(chan struct{})
 	firstCallCtx, cancel := context.WithCancel(context.Background())
 
@@ -61,7 +61,7 @@ func TestAsyncHandler_Handle_CancelRequest(t *testing.T) {
 		},
 	}
 
-	ah := newAsyncHandler(mockHandler)
+	ah := newLSPHandler(mockHandler)
 	ah.Handle(firstCallCtx, &jsonrpc2.Conn{}, &jsonrpc2.Request{
 		Method: "call",
 	})
