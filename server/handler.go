@@ -51,9 +51,9 @@ func (a *lspHandler) Handle(ctx contextpkg.Context, conn *jsonrpc2.Conn, request
 	a.mx.Unlock()
 
 	go func() {
+		defer close(thisReq)
 		<-previous
 		a.wrapped.Handle(ctx, conn, request)
-		close(thisReq)
 	}()
 }
 
