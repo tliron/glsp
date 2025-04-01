@@ -2,6 +2,7 @@ package server
 
 import (
 	contextpkg "context"
+	"errors"
 	"fmt"
 	"sync"
 
@@ -84,6 +85,7 @@ func (self *Server) handle(context contextpkg.Context, connection *jsonrpc2.Conn
 		return nil, err
 
 	default:
+		var jsonRPCErr *jsonrpc2.Error
 		// Note: jsonrpc2 will not even call this function if reqest.Params is invalid JSON,
 		// so we don't need to handle jsonrpc2.CodeParseError here
 		result, validMethod, validParams, err := self.Handler.Handle(&glspContext)
@@ -103,6 +105,8 @@ func (self *Server) handle(context contextpkg.Context, connection *jsonrpc2.Conn
 					Message: err.Error(),
 				}
 			}
+		} else if errors.As(err, &jsonRPCErr) {
+			return nil, jsonRPCErr
 		} else if err != nil {
 			return nil, &jsonrpc2.Error{
 				Code:    jsonrpc2.CodeInvalidRequest,
