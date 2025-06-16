@@ -662,6 +662,7 @@ func (self *Handler) Handle(context *glsp.Context) (r any, validMethod bool, val
 	}
 
 	return
+
 }
 
 func (self *Handler) IsInitialized() bool {
