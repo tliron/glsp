@@ -7,10 +7,11 @@ import (
 )
 
 type CustomRequestHandler struct {
-	Method string
-	Func   CustomRequestFunc
+	Func CustomRequestFunc
 	// This field should be private however it is used in both versions of the protocol
 	Params json.RawMessage
 }
+
+type CustomRequestHandlers map[string]CustomRequestHandler
 
 type CustomRequestFunc func(context *glsp.Context, params json.RawMessage) (any, error)
