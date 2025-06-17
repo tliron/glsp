@@ -82,6 +82,9 @@ type Handler struct {
 	TextDocumentLinkedEditingRange      TextDocumentLinkedEditingRangeFunc
 	TextDocumentMoniker                 TextDocumentMonikerFunc
 
+	// Custom Request/Notification
+	CustomRequest map[string]CustomRequestHandler
+
 	initialized bool
 	lock        sync.Mutex
 }
@@ -707,6 +710,17 @@ func (self *Handler) Handle(context *glsp.Context) (r any, validMethod bool, val
 			if err = json.Unmarshal(context.Params, &params); err == nil {
 				validParams = true
 				r, err = self.TextDocumentMoniker(context, &params)
+			}
+		}
+
+	default:
+		if self.CustomRequest != nil {
+			if handler, ok := self.CustomRequest[context.Method]; ok && (handler.Func != nil) {
+				validMethod = true
+				if err = json.Unmarshal(context.Params, &handler.Params); err == nil {
+					validParams = true
+					r, err = handler.Func(context, handler.Params)
+				}
 			}
 		}
 	}

@@ -648,6 +648,17 @@ func (self *Handler) Handle(context *glsp.Context) (r any, validMethod bool, val
 				r, err = self.TextDocumentDiagnostic(context, &params)
 			}
 		}
+
+	default:
+		if self.CustomRequest != nil {
+			if handler, ok := self.CustomRequest[context.Method]; ok && (handler.Func != nil) {
+				validMethod = true
+				if err = json.Unmarshal(context.Params, &handler.Params); err == nil {
+					validParams = true
+					r, err = handler.Func(context, handler.Params)
+				}
+			}
+		}
 	}
 
 	return
